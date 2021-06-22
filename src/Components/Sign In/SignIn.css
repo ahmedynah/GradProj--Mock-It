@@ -1,0 +1,129 @@
+.signInWith__Header {
+  align-self: flex-start;
+
+  display: flex;
+  align-items: center;
+  width: 170px;
+  justify-content: space-around;
+}
+.signInWith__Header hr {
+  width: 70px;
+  height: 0px;
+  margin-right: 20px;
+  border: 1px solid #fb4c53;
+}
+
+.signInWith__Header h5 {
+  color: #fb4c53;
+}
+
+.signIn--btn {
+  display: flex;
+  height: 40px;
+  padding: 8px;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #bbc7e0;
+  width:100%;
+  min-width: 150px;
+}
+.signIn--btn:hover {
+  border: 1px solid #93a3c5;
+  color: white;
+}
+
+.signInWith__googleImage {
+  width: 24px;
+  /* height: 18px; */
+  padding-right: 8px;
+}
+
+.signInWith__Text {
+  font-family: "Roboto";
+  font-size: 8pt;
+  width: 75%;
+  color: #000000;
+  font-weight: bolder;
+  letter-spacing: 1pt;
+  text-align: center;
+}
+#googleImage {
+  height: 23px;
+}
+#facebookImage {
+  height: 30px;
+  font-size: xx-large;
+  color: #097ceb;
+  padding-right: 8px;
+}
+.signIn__form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.form__Input {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin: 15px;
+}
+
+.signIn__InputLabel {
+  font-size: large;
+  font-weight: bold;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+.signIn__Input {
+  outline-style: none;
+  width: 100%;
+  max-width: 200px;
+  border: 0px;
+  padding: 20px;
+  border-radius: 33px;
+  font-size: large;
+  box-shadow: 0px 7px 13px -7px rgba(0, 0, 0, 0.75);
+  background-color: white;
+}
+.signIn__Input:focus {
+  border: 1px solid #bbc7e0;
+}
+.signIn__Input:invalid {
+  border: 1px solid red;
+}
+.form__submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 40px;
+  border-radius: 33px;
+  background-color: #fb4c53;
+  outline-style: none;
+  border: 0px;
+  color: white;
+  font-size: 12pt;
+  transition: transform 30ms ease-in-out;
+  margin: 50px;
+  box-shadow: 0px 7px 13px -7px rgba(0, 0, 0, 0.75);
+}
+.form__submit:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+.form__forgotPassword {
+  text-decoration: underline;
+  color: #93a3c5;
+  transition: transform 30ms ease-in-out;
+  font-size: 11pt;
+}
+.form__forgotPassword:hover {
+  transform: scale(1.02);
+  cursor: pointer;
+}
+

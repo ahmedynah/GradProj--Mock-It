@@ -1,0 +1,53 @@
+.signInSignUpPage {
+  height: 100vh;
+  background: rgb(187, 199, 224);
+  background: -moz-linear-gradient(
+    315deg,
+    rgba(187, 199, 224, 1) 0%,
+    rgba(229, 231, 242, 1) 50%,
+    rgba(254, 254, 254, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    315deg,
+    rgba(187, 199, 224, 1) 0%,
+    rgba(229, 231, 242, 1) 50%,
+    rgba(254, 254, 254, 1) 100%
+  );
+  background: linear-gradient(
+    315deg,
+    rgba(187, 199, 224, 1) 0%,
+    rgba(229, 231, 242, 1) 50%,
+    rgba(254, 254, 254, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#bbc7e0",endColorstr="#fefefe",GradientType=1);
+}
+.outerDiv {
+  padding: 0px 10px;
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  background: rgb(233, 240, 255);
+  background: linear-gradient(
+    220deg,
+    rgba(233, 240, 255, 1) 0%,
+    rgba(252, 254, 255, 1) 50%,
+    rgba(254, 254, 254, 1) 100%
+  );
+  border-radius: 33px;
+  /* width:fit-content;
+  min-width: fit-content; */
+}
+
+.signInSignUpPage__img {
+  flex: 0.1;
+  width: 100%;
+}
+@media only screen and (max-width: 958px) {
+  .signInSignUpPage__img {
+      display: none;
+  }
+
+}
+.signInSignUpPage__form {
+  flex: 1;
+}
