@@ -1,13 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import './assets/css/index.css';
+import './assets/css/App.css';
+import SignInSignUpPage from './layouts/SignInSignUp/SignInSignUpPage';
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { AuthProvider} from "./contexts/Auth";
+import PublicRoute from "./router/PublicRoute";
+import PrivateRoute from "./router/PrivateRoute";
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <AuthProvider>
+    <BrowserRouter>
+     <div className="App">
+       <Switch>
+       <PublicRoute  path="/login" component={SignInSignUpPage} />
+      </Switch>
+    </div>
+    </BrowserRouter>
+  </AuthProvider>,
   document.getElementById('root')
 );
 

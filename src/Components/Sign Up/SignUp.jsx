@@ -7,15 +7,25 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import FacebookIcon from "@material-ui/icons/Facebook";
-import google from "../../images/google logo.png";
-import MockItLogo from "../../images/mock-it-logo.png";
-import Rocket from "../../images/371909290_ROCKET_400px.gif";
+import google from "../../assets/img/google logo.png";
+import MockItLogo from "../../assets/img/mock-it-logo.png";
+import Rocket from "../../assets/img/371909290_ROCKET_400px.gif";
 import "./SignUp.css";
+import firebase from "../../config/Firebase";
+const firestore = firebase.firestore();
 
 export default function MaxWidthDialog({ openDialog, parentCallback }) {
   const [open, setOpen] = useState(false);
   const [fullWidth, setFullWidth] = useState(true);
   const [maxWidth, setMaxWidth] = useState("lg");
+  const [firebaseErr, setFirebaseErr] = useState(false);
+  const [fn, setFn] = useState("");
+  const [ln, setLn] = useState("");
+  const [date, setDate] = useState("");
+  const [gender, setGender] = useState("");
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+  const [rePass, setRePass] = useState("");
 
   //   const handleClickOpen = () => {
   //     setOpen(true);
@@ -30,6 +40,92 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
     parentCallback(false);
   };
 
+
+   const handleTextChange = (e) => {
+    if(e.target.id === "fn")
+      setFn(e.target.value);
+    else if(e.target.id === "ln")    
+      setLn(e.target.value);
+    else if(e.target.id === "date")    
+      setDate(e.target.value)
+    else if(e.target.id === "gender")    
+      setGender(e.target.options[e.target.options.selectedIndex].innerHTML);
+    else if(e.target.id === "email")    
+      setEmail(e.target.value);
+    else if(e.target.id === "pass")    
+      setPass(e.target.value); 
+    else if(e.target.id === "repass")    
+      setRePass(e.target.value); 
+  };
+  
+  const validateUser = async (e) => {
+    e.preventDefault();
+    const passptrn = /[a-zA-Z0-9]{8,}/;
+    if(fn === "")
+    {
+      console.log("Enter your first name...");
+      return;
+    }
+    else if(ln === "")
+    {
+      console.log("Enter your last name...");
+      return;
+    }
+    else if(gender === "Gender")
+    {
+      console.log("Choose your gender...");
+      return;
+    } 
+    else if(date === "")
+    {
+      console.log("Choose your birth date...");
+      return;
+    }
+     if(pass === rePass)
+    { console.log("same pass");
+      if(passptrn.test(pass))
+      {
+         console.log("correct pass");
+        let verfied = true;
+        console.log(email.toLocaleLowerCase());
+        await firebase.auth().createUserWithEmailAndPassword(email.toLocaleLowerCase(), pass)
+         .catch((error) => {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        if( errorCode === "auth/email-already-in-use" )
+        {
+            verfied = false;
+            firebaseErr = true;
+            console.log(errorCode);
+        }else
+         console.log(errorCode);
+        });
+
+        if(verfied)
+        {
+           var pushData = await firestore.collection('users').doc(firebase.auth().currentUser.uid);
+           pushData.set({
+             firstname: fn,
+             lastname: ln,
+             email: email,
+             dob: date,
+             gender: gender
+           });
+        }
+
+      }else
+      {
+        console.log("Password must be at least 8 characters...");
+        return;
+      }
+    }else
+    {
+
+    }
+  };
+
   return (
     <>
       <Dialog
@@ -40,7 +136,7 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
         aria-labelledby="max-width-dialog-title"
       >
         <DialogTitle id="max-width-dialog-title">
-          <div class="custom-shape-divider-top-1624301897">
+          <div className="custom-shape-divider-top-1624301897">
             <svg
               data-name="Layer 1"
               xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +145,7 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
             >
               <path
                 d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
-                class="shape-fill"
+                className="shape-fill"
               ></path>
             </svg>
           </div>
@@ -74,7 +170,7 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
                   <img src={Rocket} alt="" id="content--info__img" />
                 </div>
               </div>
-              <form className="content--form" action="post">
+              <div className="content--form">
                 <div>
                   <input
                     className="content--form__input name--FN"
@@ -82,6 +178,8 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
                     placeholder="First Name"
                     maxLength="32"
                     pattern="[A-Za-z]+"
+                    id="fn"
+                    onChange={handleTextChange}
                   />
                 </div>
 
@@ -91,14 +189,17 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
                   placeholder="Last Name"
                   maxLength="32"
                   pattern="[A-Za-z]+"
+                  id="ln"
+                  onChange={handleTextChange}
                 />
-                <div className="DateAndPassword">
-                  <input className="content--form__input date" type="date" />
+                <div className="DateAndGender">
+                  <input  id="date" onChange={handleTextChange} className="content--form__input date" type="date" />
 
                   <select
                     name="gender"
                     id="gender"
                     className="content--form__input gender"
+                    onChange={handleTextChange}
                   >
                     <option value="Gender" defaultValue>
                       Gender
@@ -116,6 +217,8 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
                   className="content--form__input"
                   placeholder="Email"
                   type="email"
+                  id="email"
+                  onChange={handleTextChange}
                 />
 
                 <input
@@ -124,12 +227,16 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
                   minLength="8"
                   autoComplete="new-password"
                   placeholder="Password"
+                  id="pass"
+                  onChange={handleTextChange}
                 />
 
                 <input
                   className="content--form__input"
                   placeholder="Repeat Password"
                   type="password"
+                  id="repass"
+                  onChange={handleTextChange}
                 />
                 <span id="termsOfUse">
                   By clicking Sign Up, you agree to our{" "}
@@ -137,11 +244,11 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
                   {"\u00A0"}and <a href=""> Cookies Policy</a>.
                 </span>
 
-                <button type="submit" className="form__submitBtn">
+                <button onClick={validateUser} className="form__submitBtn">
                   {" "}
                   Sign Up
                 </button>
-              </form>
+              </div>
               <div className="barrier">
                 <div className="verticalLine"></div>
                 <span className="barrier__word">OR</span>
