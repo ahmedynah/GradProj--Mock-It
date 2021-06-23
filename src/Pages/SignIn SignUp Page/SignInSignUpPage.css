@@ -23,6 +23,7 @@
 }
 .outerDiv {
   padding: 0px 10px;
+  min-width: 80vw;
   /* display: flex;
   align-items: center;
   justify-content: center; */

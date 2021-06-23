@@ -92,7 +92,7 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
                   maxLength="32"
                   pattern="[A-Za-z]+"
                 />
-                <div className="DateAndPassword">
+                <div className="DateAndGender">
                   <input className="content--form__input date" type="date" />
 
                   <select

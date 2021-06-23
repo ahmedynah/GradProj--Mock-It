@@ -20,14 +20,15 @@
 .signIn--btn {
   display: flex;
   height: 40px;
-  padding: 8px;
+  padding: 24px 8px;
   align-items: center;
   justify-content: flex-start;
   background-color: white;
   border-radius: 5px;
   border: 1px solid #bbc7e0;
-  width:100%;
-  min-width: 150px;
+  width: 100%;
+  min-width: 125px;
+  margin: 0px auto;
 }
 .signIn--btn:hover {
   border: 1px solid #93a3c5;
@@ -36,7 +37,6 @@
 
 .signInWith__googleImage {
   width: 24px;
-  /* height: 18px; */
   padding-right: 8px;
 }
 
@@ -58,12 +58,20 @@
   color: #097ceb;
   padding-right: 8px;
 }
+.form--Container {
+  width: 100%;
+}
+.border{
+  border:1px solid black;
+
+}
 .signIn__form {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 .form__Input {
   display: flex;
@@ -71,6 +79,8 @@
   justify-content: space-around;
   align-items: flex-start;
   margin: 15px;
+  width: 60%;
+  min-width: 200px;
 }
 
 .signIn__InputLabel {
@@ -81,8 +91,7 @@
 }
 .signIn__Input {
   outline-style: none;
-  width: 100%;
-  max-width: 200px;
+  width: 80%;
   border: 0px;
   padding: 20px;
   border-radius: 33px;
@@ -90,6 +99,7 @@
   box-shadow: 0px 7px 13px -7px rgba(0, 0, 0, 0.75);
   background-color: white;
 }
+
 .signIn__Input:focus {
   border: 1px solid #bbc7e0;
 }
@@ -126,4 +136,3 @@
   transform: scale(1.02);
   cursor: pointer;
 }
-

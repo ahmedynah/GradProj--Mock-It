@@ -74,10 +74,9 @@
   }
 }
 @media only screen and (max-width: 1026px) {
-  .content--info{
-      display: none;
+  .content--info {
+    display: none;
   }
-  
 }
 .content--form {
   display: flex;
@@ -97,6 +96,7 @@
   border-radius: 5px;
   margin-bottom: 10px;
 }
+
 .content--form__input:focus {
   background-color: white;
   border-bottom: 1px solid #097ceb;
@@ -106,7 +106,7 @@
   color: red;
 }
 
-.DateAndPassword {
+.DateAndGender {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -166,8 +166,8 @@
   margin: 0px 40px;
 }
 @media (max-width: 1180px) {
-  .barrier{
-      display: none;
+  .barrier {
+    display: none;
   }
 }
 .verticalLine {
@@ -190,6 +190,7 @@
   justify-content: center;
   height: 400px;
   flex: 0.8;
+  margin: 0px auto;
 }
 /* .content--signUpWith__header {
   font-size: 14pt;
@@ -260,7 +261,7 @@
     rgba(233, 240, 255, 1) 0%,
     rgba(252, 254, 255, 1) 50%,
     rgba(254, 254, 254, 1) 100%
-  ); */
+    ); */
   fill: #000000;
 }
 
@@ -269,5 +270,25 @@
   .custom-shape-divider-top-1624301897 svg {
     width: calc(100% + 1.3px);
     height: 96px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .content--form__input {
+    width: 200px;
+  }
+  .DateAndGender {
+    flex-direction: column;
+  }
+  .date {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-right: ;
+  }
+  .gender {
+    width: 225px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-left: 1px solid #e5e7f2;
   }
 }

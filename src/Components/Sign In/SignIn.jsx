@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: "flex-start",
     flex: 0.1,
   },
+  border:{
+    border:"1px solid black",
+  }
 }));
 
 function SignIn() {
@@ -53,26 +56,28 @@ function SignIn() {
         </Grid>
         <Grid
           item
-          xs="12"
+          xs="10"
           container
-          justify="space-between"
+          justify="center"
           alignItems="center"
-          spacing={3}
+          spacing={1}
         >
-          <Grid item xs="12" md="6">
+          <Grid xs="0" lg="1"/>
+          <Grid item justify="flex-end" xs="12" lg="5">
             <button className="signIn--btn">
               <FacebookIcon id="facebookImage" />
               <span className="signInWith__Text">SIGN IN WITH FACEBOOK</span>
             </button>
           </Grid>
-          <Grid item xs="12" md="6">
+          <Grid item justify="center" xs="12" lg="5">
             <button className="signIn--btn">
               <img id="googleImage" src={google} alt="" />
               <span className="signInWith__Text">SIGN IN WITH GOOGLE</span>
             </button>
           </Grid>
+          <Grid xs="0" lg="1"/>
         </Grid>
-        <Grid item>
+        <Grid item className="form--Container">
 
         <form action="post" className="signIn__form">
           <div className="form__Input">
