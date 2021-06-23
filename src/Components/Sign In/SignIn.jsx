@@ -9,18 +9,14 @@ import Button from "@material-ui/core/Button";
 import Dialog from "../Sign Up/SignUp";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    padding: "50px",
-    width: "100%",
-    height:"100%",
-  },
+ 
   signInHeaderBlock: {
     alignSelf: "flex-start",
     flex: 0.1,
   },
   border:{
     border:"1px solid black",
+    height:"100%",
   }
 }));
 
@@ -31,7 +27,7 @@ function SignIn() {
   const [openDialog, setOpenDialog] = useState(false);
   const classes = useStyles();
   return (
-    <Grid container className={classes.root}>
+    <Grid container className="root">
       <Grid
         item
         container
@@ -39,6 +35,7 @@ function SignIn() {
         justify="center"
         alignItems="center"
         xs="12"
+        className="test"
       >
         <Grid
           item
@@ -47,6 +44,7 @@ function SignIn() {
           direction="column"
           justify="center"
           alignItems="flex-start"
+          className="border"
         >
           <h1>Sign In</h1>
           <div className="signInWith__Header">
@@ -56,11 +54,12 @@ function SignIn() {
         </Grid>
         <Grid
           item
-          xs="10"
+          xm="12"md="10"
           container
           justify="center"
           alignItems="center"
           spacing={1}
+          className="border"
         >
           <Grid xs="0" lg="1"/>
           <Grid item justify="flex-end" xs="12" lg="5">

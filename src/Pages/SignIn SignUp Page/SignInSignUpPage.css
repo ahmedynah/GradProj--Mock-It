@@ -21,6 +21,10 @@
   );
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#bbc7e0",endColorstr="#fefefe",GradientType=1);
 }
+.outerContainer{
+  min-width:200px;
+  max-height:100vh,    
+}
 .outerDiv {
   padding: 0px 10px;
   min-width: 80vw;
@@ -43,12 +47,22 @@
   flex: 0.1;
   width: 100%;
 }
-@media only screen and (max-width: 958px) {
-  .signInSignUpPage__img {
-      display: none;
-  }
-
-}
 .signInSignUpPage__form {
   flex: 1;
+}
+@media only screen and (max-width: 958px) {
+  .signInSignUpPage__img {
+    display: none;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .signInSignUpPage {
+    height: 190vh;
+    width: 150vw;
+  }
+  .outerDiv {
+    height: 150vh;
+    display: flex;
+    align-items: flex-start !important;
+  }
 }

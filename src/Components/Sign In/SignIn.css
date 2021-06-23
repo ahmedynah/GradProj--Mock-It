@@ -1,6 +1,11 @@
+.root{
+  flex-grow: 1;
+  padding: 50px;
+  width: 100%;
+  height:100%
+}
 .signInWith__Header {
   align-self: flex-start;
-
   display: flex;
   align-items: center;
   width: 170px;
@@ -75,6 +80,7 @@
 }
 .form__Input {
   display: flex;
+  flex:0.1;
   flex-direction: column;
   justify-content: space-around;
   align-items: flex-start;
@@ -135,4 +141,10 @@
 .form__forgotPassword:hover {
   transform: scale(1.02);
   cursor: pointer;
+}
+
+
+@media only screen and (max-width:600px) {
+  
+  
 }

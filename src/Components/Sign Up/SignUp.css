@@ -283,7 +283,7 @@
   .date {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    border-right: ;
+    border-right: 1px solid #e5e7f2;
   }
   .gender {
     width: 225px;
