@@ -44,7 +44,6 @@ function SignIn() {
           direction="column"
           justify="center"
           alignItems="flex-start"
-          className="border"
         >
           <h1>Sign In</h1>
           <div className="signInWith__Header">
@@ -54,21 +53,20 @@ function SignIn() {
         </Grid>
         <Grid
           item
-          xm="12"md="10"
+          xm="12"md="9"
           container
           justify="center"
           alignItems="center"
           spacing={1}
-          className="border"
         >
-          <Grid xs="0" lg="1"/>
-          <Grid item justify="flex-end" xs="12" lg="5">
+          <Grid xs="0" lg="0"/>
+          <Grid item justify="flex-end" xs="12" lg="4">
             <button className="signIn--btn">
               <FacebookIcon id="facebookImage" />
               <span className="signInWith__Text">SIGN IN WITH FACEBOOK</span>
             </button>
           </Grid>
-          <Grid item justify="center" xs="12" lg="5">
+          <Grid item justify="center" xs="12" lg="4">
             <button className="signIn--btn">
               <img id="googleImage" src={google} alt="" />
               <span className="signInWith__Text">SIGN IN WITH GOOGLE</span>
