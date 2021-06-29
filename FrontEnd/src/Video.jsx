@@ -2,7 +2,7 @@ import { useState } from 'react'
 import axios from 'axios'
 
 
-async function postVideo({video, description}) {
+async function postVideoAndPpt({video, description}) {
   const formData = new FormData();
   formData.append("video", video)
   formData.append("description", description)
@@ -20,24 +20,38 @@ async function postVideo({video, description}) {
 function Video() {
 
   const [file, setFile] = useState()
+  const [videoFile, setVideoFile] = useState()
   const [description, setDescription] = useState("")
   const [videos, setVideos] = useState([])
+  const [pptFiles, setPptFiles] = useState([])
 
   const submit = async event => {
     event.preventDefault()
-    const result = await postVideo({video: file, description})
-    setVideos([result.video, ...videos])
+    const resultPpt = await postVideoAndPpt({video: file, description})
+    const resultVideo = await postVideoAndPpt({video: videoFile, description})
+    setVideos([resultVideo.video, ...videos])
+    setPptFiles([resultPpt.videoFile, ...pptFiles])
+    // console.log(pptFiles);
+    // console.log(videos);
   }
+
+  const videoFileSelected = event => {
+    const videoFile = event.target.files[0]
+		setVideoFile(videoFile)
+	}
 
   const fileSelected = event => {
     const file = event.target.files[0]
 		setFile(file)
 	}
-
   return (
     <div className="App">
       <form onSubmit={submit}>
-        <input onChange={fileSelected} type="file" accept="video/*"></input>
+        <label htmlFor="">ppt file</label>
+        <input onChange={videoFileSelected} type="file" accept="video/*"></input>
+        <br />
+        <label htmlFor="">video file</label>
+        <input onChange={fileSelected} type="file" accept="file/*"></input>
         <input value={description} onChange={e => setDescription(e.target.value)} type="text"></input>
         <button type="submit">Submit</button>
       </form>
