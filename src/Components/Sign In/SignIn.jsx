@@ -27,7 +27,10 @@ function SignIn() {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const classes = useStyles();
-
+  const checkDisplayName = (name) => {
+    let splitNames = name.split();
+    console.log(splitNames);
+  };
   const uiConfig = {
   // Popup signin flow rather than redirect flow.
   signInFlow: 'popup',
@@ -39,7 +42,9 @@ function SignIn() {
     firebase.auth.FacebookAuthProvider.PROVIDER_ID,
   ],
   callbacks: {
-    signInSuccessWithAuthResult: () => {  console.log(firebase.auth().currentUser) }
+    signInSuccessWithAuthResult: () => {
+      console.log(firebase.auth().currentUser.providerData[0].providerId);
+    }
   }
 };
 
@@ -60,7 +65,9 @@ function SignIn() {
      try {
       await firebase
         .auth()
-        .signInWithEmailAndPassword(email.toLocaleLowerCase(), pass);
+        .signInWithEmailAndPassword(email.toLocaleLowerCase(), pass).then((user) => {
+          console.log(user);
+        });
     } catch (err) {
       console.log(err.code);
     }  

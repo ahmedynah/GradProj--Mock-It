@@ -27,6 +27,23 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
   const [pass, setPass] = useState("");
   const [rePass, setRePass] = useState("");
 
+   const uiConfig = {
+  // Popup signin flow rather than redirect flow.
+  signInFlow: 'popup',
+  // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
+  signInSuccessUrl: '/profile',
+  // We will display Google and Facebook as auth providers.
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+  ],
+  callbacks: {
+    signInSuccessWithAuthResult: () => {
+     console.log(firebase.auth().currentUser.providerData[0].providerId);
+    }
+  }
+};
+
   //   const handleClickOpen = () => {
   //     setOpen(true);
   //   };
