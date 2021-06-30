@@ -107,7 +107,6 @@ const handleReset = async (e) => {
           direction="column"
           justify="center"
           alignItems="flex-start"
-          className="border"
         >
           <h1>Sign In</h1>
           <div className="signInWith__Header">
@@ -122,14 +121,13 @@ const handleReset = async (e) => {
           justify="center"
           alignItems="center"
           spacing={1}
-          className="border"
         >
-          <Grid xs="0" lg="1"/>
+          <Grid xs="0" md="1"/>
           <StyledFirebaseAuth
           uiConfig={uiConfig}
           firebaseAuth={firebase.auth()}
           />
-          <Grid xs="0" lg="1"/>
+          <Grid xs="0" md="1"/>
         </Grid>
         <Grid item className="form--Container">
 

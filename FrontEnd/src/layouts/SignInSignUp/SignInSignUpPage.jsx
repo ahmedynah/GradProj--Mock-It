@@ -5,7 +5,6 @@ import { makeStyles } from "@material-ui/styles";
 import gif from "../../assets/img/ClipartKey_1660502.png";
 
 import "./SignInSignUpPage.css";
-import { minWidth } from "@material-ui/system";
 
 const useStyles = makeStyles((theme)=>({
   image:{

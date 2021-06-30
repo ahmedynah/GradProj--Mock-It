@@ -1,11 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './assets/css/index.css';
-import './assets/css/App.css';
-import SignInSignUpPage from './layouts/SignInSignUp/SignInSignUpPage';
-import Video from './Video';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./assets/css/index.css";
+import "./assets/css/App.css";
+import SignInSignUpPage from "./layouts/SignInSignUp/SignInSignUpPage";
+import UserMain from "./layouts/User Main/UserMain.jsx";
+import Video from "./Video";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { AuthProvider} from "./contexts/Auth";
+import { AuthProvider } from "./contexts/Auth";
 import PublicRoute from "./router/PublicRoute";
 import PrivateRoute from "./router/PrivateRoute";
 // import reportWebVitals from './reportWebVitals';
@@ -13,15 +14,16 @@ import PrivateRoute from "./router/PrivateRoute";
 ReactDOM.render(
   <AuthProvider>
     <BrowserRouter>
-     <div className="App">
-       <Switch>
-       <PublicRoute  path="/login" component={SignInSignUpPage} />
-       <PublicRoute  path="/video" component={Video} />
-      </Switch>
-    </div>
+      <div className="App">
+        <Switch>
+          <PublicRoute path="/login" component={SignInSignUpPage} />
+          <Route path="/userhome" component={UserMain} />
+          <PublicRoute path="/video" component={Video} />
+        </Switch>
+      </div>
     </BrowserRouter>
   </AuthProvider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
