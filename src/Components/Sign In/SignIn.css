@@ -2,7 +2,8 @@
   flex-grow: 1;
   padding: 50px;
   width: 100%;
-  height:100%
+  height:100%;
+  box-sizing: border-box;
 }
 .signInWith__Header {
   align-self: flex-start;
@@ -72,6 +73,8 @@
 }
 .signIn__form {
   flex: 1;
+  box-sizing: border-box;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -93,10 +96,11 @@
   font-size: large;
   font-weight: bold;
   padding-bottom: 10px;
-  padding-left: 10px;
+  padding-left: 30px;
 }
 .signIn__Input {
   outline-style: none;
+  align-self: center;
   width: 80%;
   border: 0px;
   padding: 20px;
@@ -116,6 +120,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  align-self: center;
+  margin: 50px;
   width: 100px;
   height: 40px;
   border-radius: 33px;
@@ -125,7 +131,6 @@
   color: white;
   font-size: 12pt;
   transition: transform 30ms ease-in-out;
-  margin: 50px;
   box-shadow: 0px 7px 13px -7px rgba(0, 0, 0, 0.75);
 }
 .form__submit:hover {

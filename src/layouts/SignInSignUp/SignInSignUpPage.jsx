@@ -1,11 +1,10 @@
 import React , {useState} from "react";
-import SignIn from "../../components/Sign In/SignIn";
+import SignIn from "../../Components/Sign In/SignIn";
 import {Grid} from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import gif from "../../assets/img/ClipartKey_1660502.png";
 
 import "./SignInSignUpPage.css";
-import { minWidth } from "@material-ui/system";
 
 const useStyles = makeStyles((theme)=>({
   image:{
