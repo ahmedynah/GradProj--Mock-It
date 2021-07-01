@@ -231,7 +231,7 @@ background: -webkit-linear-gradient(to left, #000C40, #F0F2F0);  Chrome 10-25, S
   width: 100% !important;
   border-radius: 33px;
   outline: none;
-  border:1px solid #bbc7e0;
+  border: 1px solid #bbc7e0;
   text-align: center;
 }
 #upload--video,
@@ -382,6 +382,9 @@ background: -webkit-linear-gradient(to left, #000C40, #F0F2F0);  Chrome 10-25, S
 }
 
 @media screen and (max-width: 959px) {
+  .main {
+    border: 0px;
+  }
   .sideBarMenu {
     flex-direction: row;
     margin: 10px 0px 10px 10px;
