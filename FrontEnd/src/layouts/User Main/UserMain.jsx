@@ -11,7 +11,7 @@ import axios from 'axios'
 import firebase from "../../config/Firebase";
 import videoImg from "../../assets/img/background1.jpg";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ResponsiveDrawer from "../../Components/Nav Bar/ResponsiveDrawer";
+// import ResponsiveDrawer from "../../Components/Nav Bar/ResponsiveDrawer";
 import "./UserMain.css";
 const firestore = firebase.firestore();
 
