@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 import { CallMissedSharp } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
-import React , { useState } from "react";
+import React , { useState ,useContext } from "react";
 import { Button, Container } from "@material-ui/core";
 import AppBar from "../../Components/App Bar/AppBar";
 import MovieIcon from "@material-ui/icons/Movie";
@@ -161,9 +161,14 @@ function UploadElements() {
   const [videoFile, setVideoFile] = useState()
   const [videos, setVideos] = useState([])
   const [Name, setName] = useState("")
+  let videoContext1 = useContext(videoIDContext)
+
   const submit = async event => {
     event.preventDefault()
     const resultVideo = await postVideoAndPpt({ppt: file , video: videoFile, Name: Name});
+    console.log("dy al result video");
+    console.log(resultVideo);
+    videoContext1.setVideo(resultVideo.videoPath)
     setVideos([resultVideo.video, ...videos])
     // console.log(pptFiles);
     // console.log(videos);
@@ -288,6 +293,9 @@ function Reel(v) {
 }
 
 function Home({ video, data, reel, Tips, upload }) {
+
+  // const [videoId,setVideoId] = useState("")
+
   const analysis = {
     first: "70%",
     second: "poor",
@@ -392,8 +400,12 @@ function Footer() {
   );
 }
 
+const videoIDContext = React.createContext({
+  video:"",
+  setVideo: () => {}
+});
 function UserMain() {
-   const [video, setVideo] = useState("/videos/9512933288b3c21ab7b2fc5ad1acafa9");
+  const [video, setVideo] = useState("");
   return (
     <Grid container direction="column" style={{ height: "100%" }}>
       <WavesOpacity />
@@ -434,7 +446,9 @@ function UserMain() {
           md={10}
           className="main"
         >
-          <Home video={video} />
+          <videoIDContext.Provider value = {{video,setVideo}}>
+            <Home video={video}/>
+          </videoIDContext.Provider >
         </Grid>
       </Grid>
     </Grid>
