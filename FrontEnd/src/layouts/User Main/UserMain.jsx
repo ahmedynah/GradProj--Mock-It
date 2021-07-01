@@ -11,7 +11,10 @@ import axios from 'axios'
 import firebase from "../../config/Firebase";
 import videoImg from "../../assets/img/background1.jpg";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+<<<<<<< Updated upstream
 // import ResponsiveDrawer from "../../Components/Nav Bar/ResponsiveDrawer";
+=======
+>>>>>>> Stashed changes
 import "./UserMain.css";
 const firestore = firebase.firestore();
 
@@ -175,6 +178,10 @@ function UploadElements() {
     const file = event.target.files[0]
 		setFile(file)
 	}
+  const handleText = (e) => {
+    if(e.target.id === "files--name")
+    setName(e.target.value);
+  }
   return (
     <div className="floatingDiv" style={{ height: "200px" }}>
       <h3 className="uploadHeader">Upload New</h3>
@@ -221,6 +228,7 @@ function UploadElements() {
             <input
               type="text"
               name="files--name"
+              onChange={handleText}
               id="files--name"
               aria-controls="none"
               placeholder="Name your files"
@@ -316,7 +324,7 @@ function Home({ video, data, reel, Tips, upload }) {
           <Tip />
         </Grid>
         <Grid item xs="12" md="5" justify="space-around" alignItems="center">
-          <UploadElements />
+          <UploadElements  />
         </Grid>
       </Grid>
       <Grid
