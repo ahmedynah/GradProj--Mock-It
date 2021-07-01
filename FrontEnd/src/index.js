@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./assets/css/index.css";
 import "./assets/css/App.css";
 import SignInSignUpPage from "./layouts/SignInSignUp/SignInSignUpPage";
-import UserMain from "./layouts/User Main/UserMain.jsx";
+import UserMain from "./layouts/User Main/UserMain";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/Auth";
 import PublicRoute from "./router/PublicRoute";
@@ -16,7 +16,7 @@ ReactDOM.render(
       <div className="App">
         <Switch>
           <PublicRoute path="/login" component={SignInSignUpPage} />
-          <Route path="/userhome" component={UserMain} />
+          <PrivateRoute path="/dashboard" component={UserMain} />
         </Switch>
       </div>
     </BrowserRouter>
