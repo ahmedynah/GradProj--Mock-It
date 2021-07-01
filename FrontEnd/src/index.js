@@ -4,7 +4,6 @@ import "./assets/css/index.css";
 import "./assets/css/App.css";
 import SignInSignUpPage from "./layouts/SignInSignUp/SignInSignUpPage";
 import UserMain from "./layouts/User Main/UserMain.jsx";
-import Video from "./Video";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/Auth";
 import PublicRoute from "./router/PublicRoute";
@@ -18,7 +17,6 @@ ReactDOM.render(
         <Switch>
           <PublicRoute path="/login" component={SignInSignUpPage} />
           <Route path="/userhome" component={UserMain} />
-          <PublicRoute path="/video" component={Video} />
         </Switch>
       </div>
     </BrowserRouter>

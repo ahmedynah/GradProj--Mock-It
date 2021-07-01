@@ -1,12 +1,16 @@
+import React from "react";
+import { Link } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 import { CallMissedSharp } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
-import React from "react";
-import { Button } from "@material-ui/core";
+import { Button, Container } from "@material-ui/core";
 import AppBar from "../../Components/App Bar/AppBar";
 import video from "../../assets/img/video.mp4";
 import MovieIcon from "@material-ui/icons/Movie";
 import AttachmentIcon from "@material-ui/icons/Attachment";
+import videoImg from "../../assets/img/background1.jpg";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import ResponsiveDrawer from "../../Components/Nav Bar/ResponsiveDrawer";
 import "./UserMain.css";
 
 function iterateData(obj) {
@@ -16,8 +20,8 @@ function iterateData(obj) {
   const rows = [];
   for (const field in obj) {
     let element = (
-      <Grid justify="center" alignItems="center" xs={6}>
-        <h4 className="analysis__field--header">{field}</h4>
+      <Grid container justify="space-between" alignItems="center" xs={4}>
+        <h4 className="analysis__field--header">{field}:</h4>
         <span className="analysis__field--high">
           {" "}
           {"\u00A0"}
@@ -64,16 +68,16 @@ function MainVideo({ videoSrc, videoName, date, overallScore, submittedTo }) {
         <div className="video__info">
           <h3 className="info__title">{videoName}</h3>
           <div className="info__Date">
-            <h5>Date </h5>
-            <p>{date||"25-06-2015"}</p>
+            <h5>Date: </h5>
+            <p>{date || "25-06-2015"}</p>
           </div>
           <div className="info__OverallScore">
-            <h5>Overall Score </h5>
-            <p>{overallScore||"70%"}</p>
+            <h5>Overall Score: </h5>
+            <p>{overallScore || "70%"}</p>
           </div>
           <div className="info__SubmittedTo">
             <h5>Submitted To: </h5>
-            <p>{submittedTo||"amazon.com"}</p>
+            <p>{submittedTo || "amazon.com"}</p>
           </div>
         </div>
       </div>
@@ -163,7 +167,17 @@ function UploadElements() {
               required
             />
           </Grid>
-          <Grid item xs={6} md={3} justify="flex-start">
+          <Grid item xs={5} md={3}>
+            <input
+              type="text"
+              name="files--name"
+              id="files--name"
+              aria-controls="none"
+              placeholder="Name your files"
+              required
+            />
+          </Grid>
+          <Grid item xs={3} md={3} justify="flex-start">
             {/* <button type="submit" className="submitBtn">Upload</button> */}
             <Button type="submit" id="submitBtn">
               {" "}
@@ -185,18 +199,34 @@ function Tip() {
     </div>
   );
 }
-function Reel(v){
-  const videos = [video,video,video, video,video];
-return (
-  <div></div>
-  // videos.map(entry=>{
-  //   return (
-  //     <div>
-  //       video
-  //     </div>
-  //   )
-  // })
-)
+function Reel(v) {
+  const videos = [
+    videoImg,
+    videoImg,
+    videoImg,
+    videoImg,
+    videoImg,
+    videoImg,
+    videoImg,
+    videoImg,
+    videoImg,
+    videoImg,
+  ];
+  return (
+    <>
+      {videos.map((entry) => {
+        return (
+          <div
+            className="videoThumbnail"
+            style={{ backgroundImage: `url(${entry})` }}
+          >
+            <h6 className="videoThumbnail__title">Video name</h6>
+            <div className="videoThumbnail__overlay"></div>
+          </div>
+        );
+      })}
+    </>
+  );
 }
 
 function Home({ video, data, reel, Tips, upload }) {
@@ -208,14 +238,17 @@ function Home({ video, data, reel, Tips, upload }) {
     fifth: "forSchool",
     sixth: "ya 2moor",
   };
-  // const vide
   return (
     <Grid
+      item
       direction="column"
-      justify="center"
-      alignItems="center"
-      style={{ padding: "10px", boxSizing: "border-box" }}
+      justify="space-between"
+      spacing={0}
+      xs={10}
+      // className="main"
+      style={{  boxSizing: "border-box", margin:"0px auto" }}
     >
+      {/* <> */}
       <Grid
         container
         item
@@ -224,64 +257,128 @@ function Home({ video, data, reel, Tips, upload }) {
         alignItems="center"
         style={{ margin: "10px" }}
       >
-        <Grid xs="12" md="5" justify="flex-start" style={{ position: "relative" }}>
+        <Grid
+          xs="12"
+          md="5"
+          justify="flex-start"
+          style={{ position: "relative" }}
+        >
           <Tip />
         </Grid>
-        <Grid xs="12" md="5" justify="space-around" alignItems="center">
+        <Grid item xs="12" md="5" justify="space-around" alignItems="center">
           <UploadElements />
         </Grid>
-
       </Grid>
       <Grid
         container
         item
         xs={12}
         justify="space-evenly"
-        alignItems="center"
+        alignItems="stretch"
         style={{ margin: "10px" }}
+        spacing={2}
       >
         <MainVideo videoSrc={video} videoName="Nature" />
         <MainAnalysis analysis={analysis} />
       </Grid>
-      <Grid xs={12} justify="space-between" alignItems="center">
-        <Reel vidoes={video}/>
+      <Grid
+        container
+        item
+        direction="column"
+        xs={12}
+        justify="center"
+        alignItems="center"
+      >
+        <h4 className="ReelHeader">Recent Videos</h4>
+        <div className="videoReel">
+          <Reel />
+        </div>
       </Grid>
+      {/* </> */}
     </Grid>
+  );
+}
+function SideBar() {
+  return (
+    <ul className="sideBarMenu">
+      <li className="sideBarMenu__item">
+        {" "}
+        <span className="menuItem__text">
+          <Link className="homeLink" to="/">
+            Home
+          </Link>
+        </span>
+      </li>
+      <li className="sideBarMenu__item">
+        {" "}
+        <span className="menuItem__text">Analytics</span>
+      </li>
+      <li className="sideBarMenu__item">
+        {" "}
+        <span className="menuItem__text">Profile</span>
+      </li>
+    </ul>
+  );
+}
+function Footer() {
+  return (
+    <>
+      <Grid item xs={5} className="footer">
+        <h4>Mockit</h4>
+      </Grid>
+      <Grid item xs={5} className="footer" justify="center" alignItems="center">
+        <h4 style={{ display: "inline-block" }}>Developed with</h4>
+        <FavoriteIcon style={{ fontSize: "10pt", margin: "0px 2px -2px" }} />
+      </Grid>
+    </>
   );
 }
 
 function UserMain() {
   return (
-    <div className="userMain--root">
+    <Grid container direction="column" style={{ height: "100%" }}>
       <WavesOpacity />
-      <Grid container item xs={12} style={{ marginBottom: "5px" }}>
+      <Grid item xs={12} style={{ flex: "0.01" }}>
         <AppBar />
       </Grid>
-      <Grid container xs={12} style={{ height: "100%" }}>
+      <Grid
+        container
+        item
+        xs={12}
+        justify="space-around"
+        style={{
+          maxHeight: "100%",
+          flex: "1",
+          boxSizing: "border-box",
+          padding:"10px",
+          overflowY:"auto",
+        }}
+        spacing={0}
+      >
         <Grid
           direction="column"
           justify="flex-start"
-          spacing={1}
           container
           item
           xs={0}
           md={2}
-          className="borderred"
-        ></Grid>
-        <Grid container direction="column" xs={12} md={10}>
-          <Grid
-            container
-            item
-            direction="column"
-            spacing={1}
-            lg={12}
-            className="main"
-          >
-            <Home video={video} />
-          </Grid>
+          className=""
+        >
+          <Grid item xs="1" ></Grid>
+          <SideBar />
+        </Grid>
+        <Grid
+          container
+          item
+          justify="space-between"
+          xs={12}
+          md={10}
+          className="main"
+        >
+          <Home video={video} />
         </Grid>
       </Grid>
-    </div>
+    </Grid>
   );
 }
 
