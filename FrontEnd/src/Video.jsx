@@ -2,10 +2,10 @@ import { useState } from 'react'
 import axios from 'axios'
 
 
-async function postVideoAndPpt({video, description}) {
+async function postVideoAndPpt({video, video2}) {
   const formData = new FormData();
   formData.append("video", video)
-  formData.append("description", description)
+  formData.append("video", video2)
 
   
   const result = await axios.post('http://localhost:5000/videos', formData, { headers: {'Content-Type': 'multipart/form-data'}})
@@ -27,9 +27,9 @@ function Video() {
 
   const submit = async event => {
     event.preventDefault()
-    const resultPpt = await postVideoAndPpt({video: file, description})
-    const resultVideo = await postVideoAndPpt({video: videoFile, description})
-    setVideos([resultVideo.video, ...videos])
+    const resultPpt = await postVideoAndPpt({video: file, video2: videoFile})
+    // const resultVideo = await postVideoAndPpt({video: videoFile, description})
+    setVideos([resultPpt.video, ...videos])
     setPptFiles([resultPpt.videoFile, ...pptFiles])
     // console.log(pptFiles);
     // console.log(videos);
@@ -57,7 +57,7 @@ function Video() {
       </form>
       <video controls width="250">
 
-        <source src="/videos/dd4cac0bd11c54139eedd4bffa785692" alt="" type="video/mp4"/>
+        <source src="/videos/9ecf4cb95a62d929535aa452371cdf76" alt="" type="video/mp4"/>
 
       </video>
     </div>

@@ -1,13 +1,39 @@
 import { Grid } from "@material-ui/core";
 import { CallMissedSharp } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
-import React from "react";
+import React , { useState } from "react";
 import { Button } from "@material-ui/core";
 import AppBar from "../../Components/App Bar/AppBar";
-import video from "../../assets/img/video.mp4";
 import MovieIcon from "@material-ui/icons/Movie";
 import AttachmentIcon from "@material-ui/icons/Attachment";
+import axios from 'axios'
+import firebase from "../../config/Firebase";
+import video from "../../assets/img/video.mp4";
 import "./UserMain.css";
+const firestore = firebase.firestore();
+
+async function postVideoAndPpt({ppt, video, Name}) {
+  const formData = new FormData();
+  formData.append("video", video)
+  formData.append("video", ppt)
+  
+  const result = await axios.post('http://localhost:5000/videos', formData, { headers: {'Content-Type': 'multipart/form-data'}})
+  .catch(function (error) {
+    console.log(error);
+  });
+
+  console.log(result.data);
+   let pushData = firestore.collection("modelData").doc();
+  await pushData.set({
+    uID: firebase.auth().currentUser.uid,
+    videoID: result.data.videoPath,
+    pptID: result.data.pptPath,
+    results: [],
+    name: Name
+  });
+
+  return result.data
+}
 
 function iterateData(obj) {
   let counter = 0;
@@ -125,10 +151,31 @@ function WavesOpacity() {
   );
 }
 function UploadElements() {
+  const [file, setFile] = useState()
+  const [videoFile, setVideoFile] = useState()
+  const [videos, setVideos] = useState([])
+  const [Name, setName] = useState("")
+  const submit = async event => {
+    event.preventDefault()
+    const resultVideo = await postVideoAndPpt({ppt: file , video: videoFile, Name: Name});
+    setVideos([resultVideo.video, ...videos])
+    // console.log(pptFiles);
+    // console.log(videos);
+  }
+
+  const videoFileSelected = event => {
+    const videoFile = event.target.files[0]
+		setVideoFile(videoFile)
+	}
+
+  const fileSelected = event => {
+    const file = event.target.files[0]
+		setFile(file)
+	}
   return (
     <div className="floatingDiv" style={{ height: "200px" }}>
       <h3 className="uploadHeader">Upload New</h3>
-      <form style={{ width: "100%" }}>
+      <form onSubmit={submit} style={{ width: "100%" }}>
         <Grid
           container
           item
@@ -144,6 +191,8 @@ function UploadElements() {
             </label>
             <input
               type="file"
+              onChange={videoFileSelected}
+              accept="video/*"
               name="upload--video"
               id="upload--video"
               aria-controls="none"
@@ -157,6 +206,8 @@ function UploadElements() {
             </label>
             <input
               type="file"
+              onChange={fileSelected}
+              accept="file/*"
               name="upload--slides"
               id="upload--slides"
               aria-controls="none"
@@ -251,6 +302,7 @@ function Home({ video, data, reel, Tips, upload }) {
 }
 
 function UserMain() {
+   const [video, setVideo] = useState("/videos/9512933288b3c21ab7b2fc5ad1acafa9");
   return (
     <div className="userMain--root">
       <WavesOpacity />
