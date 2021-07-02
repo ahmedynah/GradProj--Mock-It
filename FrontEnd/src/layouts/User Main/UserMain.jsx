@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 import { CallMissedSharp } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
-import React , { useState ,useContext } from "react";
+import React , { useState ,useContext, useCallback } from "react";
 import { Button, Container } from "@material-ui/core";
 import AppBar from "../../Components/App Bar/AppBar";
 import MovieIcon from "@material-ui/icons/Movie";
@@ -11,8 +11,11 @@ import axios from 'axios'
 import firebase from "../../config/Firebase";
 import videoImg from "../../assets/img/background1.jpg";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import { videoIDContext } from './videoContext';
 // import ResponsiveDrawer from "../../Components/Nav Bar/ResponsiveDrawer";
 import "./UserMain.css";
+
+
 const firestore = firebase.firestore();
 
 async function postVideoAndPpt({ppt, video, Name}) {
@@ -77,6 +80,7 @@ function MainAnalysis({ analysis }) {
 }
 
 function MainVideo({ videoSrc, videoName, date, overallScore, submittedTo }) {
+  console.log("henaaaaaa",videoSrc);
   return (
     <Grid
       item
@@ -153,19 +157,23 @@ function WavesOpacity() {
     </div>
   );
 }
-function UploadElements() {
+function UploadElements(video) {
   const [file, setFile] = useState()
   const [videoFile, setVideoFile] = useState()
   const [videos, setVideos] = useState([])
   const [Name, setName] = useState("")
-  let videoContext1 = useContext(videoIDContext)
-
+  const videoContext = useContext(videoIDContext);
+  
   const submit = async event => {
     event.preventDefault()
     const resultVideo = await postVideoAndPpt({ppt: file , video: videoFile, Name: Name});
     console.log("dy al result video");
-    console.log(resultVideo);
-    videoContext1.setVideo(resultVideo.videoPath)
+    console.log("resultVideo.videoPath is ",resultVideo.videoPath);
+    console.log(video);
+    video.videoDisplayFile(resultVideo.videoPath);
+    // console.log("sss", video.videoDisplayFile);
+    // console.log("sss", video);
+    // videoContext.setVideo(resultVideo.videoPath)
     setVideos([resultVideo.video, ...videos])
     // console.log(pptFiles);
     // console.log(videos);
@@ -180,6 +188,8 @@ function UploadElements() {
     const file = event.target.files[0]
 		setFile(file)
 	}
+  
+
   return (
     <div className="floatingDiv" style={{ height: "200px" }}>
       <h3 className="uploadHeader">Upload New</h3>
@@ -286,7 +296,17 @@ function Reel(v) {
 
 function Home({ video, data, reel, Tips, upload }) {
 
-  // const [videoId,setVideoId] = useState("")
+  // const videoContext = useContext(videoIDContext);
+
+  const [ videoDisplayFile ,setVideoDisplayFile] = useState("")
+  
+  const handleCallback = useCallback((childData) =>{
+    setVideoDisplayFile(childData)
+    video= videoDisplayFile? videoDisplayFile: ""
+    console.log("videoDisplayFile is ", videoDisplayFile);
+    console.log("video is ", childData);
+    return video
+  });
 
   const analysis = {
     first: "70%",
@@ -296,6 +316,10 @@ function Home({ video, data, reel, Tips, upload }) {
     fifth: "forSchool",
     sixth: "ya 2moor",
   };
+  // useEffect(() => {
+  //   console.log(videoContext);
+  // });
+
   return (
     <Grid
       item
@@ -324,7 +348,7 @@ function Home({ video, data, reel, Tips, upload }) {
           <Tip />
         </Grid>
         <Grid item xs="12" md="5" justify="space-around" alignItems="center">
-          <UploadElements />
+          <UploadElements videoDisplayFile = {handleCallback}/>
         </Grid>
       </Grid>
       <Grid
@@ -336,6 +360,7 @@ function Home({ video, data, reel, Tips, upload }) {
         style={{ margin: "10px" }}
         spacing={2}
       >
+        
         <MainVideo videoSrc={video} videoName="Nature" />
         <MainAnalysis analysis={analysis} />
       </Grid>
@@ -353,6 +378,9 @@ function Home({ video, data, reel, Tips, upload }) {
         </div>
       </Grid>
       {/* </> */}
+      <video className="video" width="100%" controls>
+        <source src={videoDisplayFile} type="video/mp4" />
+      </video>
     </Grid>
   );
 }
@@ -392,12 +420,7 @@ function Footer() {
   );
 }
 
-const videoIDContext = React.createContext({
-  video:"",
-  setVideo: () => {}
-});
 function UserMain() {
-  const [video, setVideo] = useState("");
   return (
     <Grid container direction="column" style={{ height: "100%" }}>
       <WavesOpacity />
@@ -438,9 +461,9 @@ function UserMain() {
           md={10}
           className="main"
         >
-          <videoIDContext.Provider value = {{video,setVideo}}>
-            <Home video={video}/>
-          </videoIDContext.Provider >
+          {/* <videoIDContext.Provider value = {videoContext}> */}
+          <Home />
+          {/* </videoIDContext.Provider > */}
         </Grid>
       </Grid>
     </Grid>

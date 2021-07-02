@@ -29,11 +29,12 @@ const corsOpts = {
 
 app.use(cors(corsOpts));
 app.get("/videos/:key", (req, res) => {
-  console.log("ss");
+  console.log("ssdd");
     console.log(req.params);
     const key = req.params.key;
     const readStream = getFileStream(key);
     console.log(readStream.key);
+    
     readStream.pipe(res);
   });
 
