@@ -11,10 +11,6 @@ import axios from 'axios'
 import firebase from "../../config/Firebase";
 import videoImg from "../../assets/img/background1.jpg";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-<<<<<<< Updated upstream
-// import ResponsiveDrawer from "../../Components/Nav Bar/ResponsiveDrawer";
-=======
->>>>>>> Stashed changes
 import "./UserMain.css";
 const firestore = firebase.firestore();
 
@@ -90,7 +86,7 @@ function MainVideo({ videoSrc, videoName, date, overallScore, submittedTo }) {
       alignItems="start"
     >
       <div className="video--container">
-        <video className="video" width="100%" controls>
+        <video key={videoSrc} className="video" width="100%" controls>
           <source src={videoSrc} type="video/mp4" />
         </video>
         <div className="video__info">
@@ -262,19 +258,9 @@ function Tip() {
     </div>
   );
 }
-function Reel(v) {
-  const videos = [
-    videoImg,
-    videoImg,
-    videoImg,
-    videoImg,
-    videoImg,
-    videoImg,
-    videoImg,
-    videoImg,
-    videoImg,
-    videoImg,
-  ];
+function Reel({getVideos}) {
+
+  const videos = getVideos;
   return (
     <>
       {videos.map((entry) => {
@@ -292,7 +278,7 @@ function Reel(v) {
   );
 }
 
-function Home({ video, data, reel, Tips, upload }) {
+function Home({ video, setVideos ,  data, reel, Tips, upload }) {
 
   // const [videoId,setVideoId] = useState("")
 
@@ -357,7 +343,7 @@ function Home({ video, data, reel, Tips, upload }) {
       >
         <h4 className="ReelHeader">Recent Videos</h4>
         <div className="videoReel">
-          <Reel />
+          <Reel getVideos={setVideos} />
         </div>
       </Grid>
       {/* </> */}
@@ -399,13 +385,29 @@ function Footer() {
     </>
   );
 }
-
+  const getRecentVideos = async () => {
+    const modelsRef = firestore.collection('modelData');
+    const snapshot = await modelsRef.where('uID', '==', firebase.auth().currentUser.uid).get();
+    if (snapshot.empty) {
+      console.log('No matching documents.');
+      return;
+    }  
+    let list = [];
+    snapshot.forEach(doc => {
+      console.log(doc.id, '=>', doc.data());
+      list.push(doc.data());
+});
+  return list;
+  };
 const videoIDContext = React.createContext({
   video:"",
-  setVideo: () => {}
+  setVideo: () => {},
+  setRecentVideos: getRecentVideos()
 });
 function UserMain() {
   const [video, setVideo] = useState("");
+  const [recentVideos, setRecentVideos] = useState([]);
+
   return (
     <Grid container direction="column" style={{ height: "100%" }}>
       <WavesOpacity />
@@ -446,8 +448,8 @@ function UserMain() {
           md={10}
           className="main"
         >
-          <videoIDContext.Provider value = {{video,setVideo}}>
-            <Home video={video}/>
+          <videoIDContext.Provider value = {{video,setVideo,setRecentVideos}}>
+            <Home video={video} setVideos={setRecentVideos}/>
           </videoIDContext.Provider >
         </Grid>
       </Grid>
