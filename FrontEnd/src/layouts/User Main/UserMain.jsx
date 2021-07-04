@@ -278,13 +278,18 @@ function Reel({getVideos}) {
       {videos? videos.map((entry) => {
       console.log("videooosss",entry)
         return (  
+           <Link to="/analytics">
           <div
             className="videoThumbnail"
           >
-            <VideoPlayer videoUrl={entry.videoID} snapshotAt={10} />
-            <h6 className="videoThumbnail__title">Video name</h6>
+         
+           <video key={entry.videoID} className="videoThumbnail">
+             <source src={entry.videoID}></source>
+           </video>
+            <h6 className="videoThumbnail__title">{entry.name}</h6>
             <div className="videoThumbnail__overlay"></div>
           </div>
+          </Link>
         );
       }): <div></div>}
     </>
