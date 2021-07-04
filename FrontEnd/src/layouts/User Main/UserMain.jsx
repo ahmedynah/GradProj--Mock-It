@@ -297,6 +297,7 @@ function Reel({ getVideos }) {
             className="videoThumbnail"
             id={entry.videoID}
             onClick={handleOnClick}
+            style={{cursor: "pointer"}}
           >
          
            <video on style={{pointerEvents: "none"}}  key={entry.videoID} className="videoThumbnail">
