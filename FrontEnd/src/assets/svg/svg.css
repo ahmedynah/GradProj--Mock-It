@@ -1,0 +1,76 @@
+/* used in the account page {gives a curve shape} */
+.custom-shape-divider-top-1625399979 {
+  position: relative;
+  z-index: -1000;
+  top: 0px;
+  left: 50%;
+  margin-left: -30%;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-top-1625399979 svg {
+  position: relative;
+  box-sizing: border-box;
+  margin-right: 0px;
+  display: block;
+  width: calc(60%);
+  height: 160px;
+}
+
+.custom-shape-divider-top-1625399979 .shape-fill {
+  fill: #e9f0ff;
+}
+
+/** For mobile devices **/
+@media (max-width: 767px) {
+  .custom-shape-divider-top-1625399979 {
+    position: relative;
+    z-index: -1000;
+    top: 0;
+    left: 50%;
+    margin-left: -35%;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+  }
+  .custom-shape-divider-top-1625399979 svg {
+    width: calc(70%);
+    height: 140px;
+  }
+}
+
+/* used for account info */
+.custom-shape-divider-top-1625405656 {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+  transform: rotateX(180deg);
+}
+
+.custom-shape-divider-top-1625405656 svg {
+  position: relative;
+  display: block;
+  width: calc(120%);
+  height: 300px;
+}
+
+.custom-shape-divider-top-1625405656 .shape-fill {
+  fill: #FFFFFF;
+}
+
+/** For mobile devices **/
+@media (max-width: 767px) {
+  .custom-shape-divider-top-1625405656 svg {
+      position: relative;
+      z-index: -1000;
+      width: calc(122%);
+      height: 169px;
+  }
+}

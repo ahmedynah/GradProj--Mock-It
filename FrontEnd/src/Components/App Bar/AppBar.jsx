@@ -14,6 +14,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import './AppBar.css'
 import logo from '../../assets/img/mock-it-logo.png'
 
@@ -118,7 +120,10 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <AssignmentIndIcon/> {'\u00A0'} Account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <MeetingRoomIcon/> {'\u00A0'} Sign out</MenuItem>
     </Menu>
   );
 
@@ -156,9 +161,20 @@ export default function PrimarySearchAppBar() {
           aria-haspopup="true"
           color="inherit"
         >
-          <AccountCircle />
+          <AssignmentIndIcon/>
         </IconButton>
-        <p>Profile</p>
+        <p>Account</p>
+      </MenuItem>
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <MeetingRoomIcon/>
+        </IconButton>
+        <p>Sign Out</p>
       </MenuItem>
     </Menu>
   );

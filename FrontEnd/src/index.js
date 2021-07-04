@@ -8,6 +8,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/Auth";
 import PublicRoute from "./router/PublicRoute";
 import PrivateRoute from "./router/PrivateRoute";
+import Account from "./layouts/Account/Account";
 // import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
@@ -16,6 +17,7 @@ ReactDOM.render(
       <div className="App">
         <Switch>
           <PublicRoute path="/login" component={SignInSignUpPage} />
+          <PrivateRoute path="/account" component={Account} />
           <PrivateRoute path="/dashboard" component={UserMain} />
         </Switch>
       </div>
