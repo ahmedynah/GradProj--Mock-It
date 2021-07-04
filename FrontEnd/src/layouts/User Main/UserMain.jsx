@@ -2,39 +2,42 @@ import { Link } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 import { CallMissedSharp } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
-import React , { useState ,useContext,useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Button, Container } from "@material-ui/core";
 import AppBar from "../../Components/App Bar/AppBar";
 import MovieIcon from "@material-ui/icons/Movie";
 import AttachmentIcon from "@material-ui/icons/Attachment";
-import axios from 'axios'
+import axios from "axios";
 import firebase from "../../config/Firebase";
 import videoImg from "../../assets/img/background1.jpg";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import "./UserMain.css";
 const firestore = firebase.firestore();
 
-async function postVideoAndPpt({ppt, video, Name}) {
+async function postVideoAndPpt({ ppt, video, Name }) {
   const formData = new FormData();
-  formData.append("video", video)
-  formData.append("video", ppt)
-  
-  const result = await axios.post('http://localhost:5000/videos', formData, { headers: {'Content-Type': 'multipart/form-data'}})
-  .catch(function (error) {
-    console.log(error);
-  });
+  formData.append("video", video);
+  formData.append("video", ppt);
+
+  const result = await axios
+    .post("http://localhost:5000/videos", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 
   console.log(result.data);
-   let pushData = firestore.collection("modelData").doc();
+  let pushData = firestore.collection("modelData").doc();
   await pushData.set({
     uID: firebase.auth().currentUser.uid,
     videoID: result.data.videoPath,
     pptID: result.data.pptPath,
     results: [],
-    name: Name
+    name: Name,
   });
 
-  return result.data
+  return result.data;
 }
 
 function iterateData(obj) {
@@ -153,36 +156,39 @@ function WavesOpacity() {
   );
 }
 function UploadElements() {
-  const [file, setFile] = useState()
-  const [videoFile, setVideoFile] = useState()
-  const [videos, setVideos] = useState([])
-  const [Name, setName] = useState("")
-  let videoContext1 = useContext(videoIDContext)
+  const [file, setFile] = useState();
+  const [videoFile, setVideoFile] = useState();
+  const [videos, setVideos] = useState([]);
+  const [Name, setName] = useState("");
+  let videoContext1 = useContext(videoIDContext);
 
-  const submit = async event => {
-    event.preventDefault()
-    const resultVideo = await postVideoAndPpt({ppt: file , video: videoFile, Name: Name});
+  const submit = async (event) => {
+    event.preventDefault();
+    const resultVideo = await postVideoAndPpt({
+      ppt: file,
+      video: videoFile,
+      Name: Name,
+    });
     console.log("dy al result video");
     console.log(resultVideo);
-    videoContext1.setVideo(resultVideo.videoPath)
-    setVideos([resultVideo.video, ...videos])
+    videoContext1.setVideo(resultVideo.videoPath);
+    setVideos([resultVideo.video, ...videos]);
     // console.log(pptFiles);
     // console.log(videos);
-  }
+  };
 
-  const videoFileSelected = event => {
-    const videoFile = event.target.files[0]
-		setVideoFile(videoFile)
-	}
+  const videoFileSelected = (event) => {
+    const videoFile = event.target.files[0];
+    setVideoFile(videoFile);
+  };
 
-  const fileSelected = event => {
-    const file = event.target.files[0]
-		setFile(file)
-	}
+  const fileSelected = (event) => {
+    const file = event.target.files[0];
+    setFile(file);
+  };
   const handleText = (e) => {
-    if(e.target.id === "files--name")
-    setName(e.target.value);
-  }
+    if (e.target.id === "files--name") setName(e.target.value);
+  };
   return (
     <div className="floatingDiv" style={{ height: "200px" }}>
       <h3 className="uploadHeader">Upload New</h3>
@@ -258,56 +264,52 @@ function Tip() {
     </div>
   );
 }
-function Reel({getVideos}) {
-
+function Reel({ getVideos }) {
   const [videos, setVideos] = useState("");
-  useEffect(()=>{
-    getVideos().then((result)=>{
-    
-      console.log("REELL",result); 
-      setVideos(result)
-      console.log("videooosss",videos.length)
-    })
-    
-}, [])
-  
-  
+  useEffect(() => {
+    getVideos().then((result) => {
+      console.log("REELL", result);
+      setVideos(result);
+      console.log("videooosss", videos.length);
+    });
+  }, []);
+
   return (
     <>
-    
-      {videos? videos.map((entry) => {
-      console.log("videooosss",entry)
-        return (  
-           <Link to="/analytics">
-          <div
-            className="videoThumbnail"
-          >
-         
-           <video key={entry.videoID} className="videoThumbnail">
-             <source src={entry.videoID}></source>
-           </video>
-            <h6 className="videoThumbnail__title">{entry.name}</h6>
-            <div className="videoThumbnail__overlay"></div>
-          </div>
-          </Link>
-        );
-      }): <div></div>}
+      {videos ? (
+        videos.map((entry) => {
+          console.log("videooosss", entry);
+          return (
+            
+              <div className="videoThumbnail">
+                <video key={entry.videoID} className="videoDim">
+                  <source className="videoDim" src={entry.videoID}></source>
+                </video>
+                <h6 className="videoThumbnail__title">{entry.name}</h6>
+                <div className="videoThumbnail__overlay"></div>
+              </div>
+          );
+        })
+      ) : (
+        <div></div>
+      )}
     </>
   );
 }
 
 const getRecentVideos = async () => {
-  const modelsRef = firestore.collection('modelData');
+  const modelsRef = firestore.collection("modelData");
   // let user = ;
-  if(firebase.auth().currentUser)
-  {
-    const snapshot = await modelsRef.where('uID', '==', firebase.auth().currentUser.uid).get();
+  if (firebase.auth().currentUser) {
+    const snapshot = await modelsRef
+      .where("uID", "==", firebase.auth().currentUser.uid)
+      .get();
     if (snapshot.empty) {
-      console.log('No matching documents.');
+      console.log("No matching documents.");
       return;
-    }  
+    }
     let list = [];
-    snapshot.forEach(doc => {
+    snapshot.forEach((doc) => {
       list.push(doc.data());
     });
     return list;
@@ -315,7 +317,6 @@ const getRecentVideos = async () => {
 };
 
 function Home({ video, data, reel, Tips, upload }) {
-  
   const analysis = {
     first: "70%",
     second: "poor",
@@ -332,7 +333,7 @@ function Home({ video, data, reel, Tips, upload }) {
       spacing={0}
       xs={10}
       // className="main"
-      style={{  boxSizing: "border-box", margin:"0px auto" }}
+      style={{ boxSizing: "border-box", margin: "0px auto" }}
     >
       {/* <> */}
       <Grid
@@ -352,7 +353,7 @@ function Home({ video, data, reel, Tips, upload }) {
           <Tip />
         </Grid>
         <Grid item xs="12" md="5" justify="space-around" alignItems="center">
-          <UploadElements  />
+          <UploadElements />
         </Grid>
       </Grid>
       <Grid
@@ -406,6 +407,7 @@ function SideBar() {
     </ul>
   );
 }
+
 function Footer() {
   return (
     <>
@@ -420,13 +422,12 @@ function Footer() {
   );
 }
 const videoIDContext = React.createContext({
-  video:"",
-  setVideo: () => {}
+  video: "",
+  setVideo: () => {},
 });
 function UserMain() {
-
   const [video, setVideo] = useState("");
-  
+
   return (
     <Grid container direction="column" style={{ height: "100%" }}>
       <WavesOpacity />
@@ -442,21 +443,24 @@ function UserMain() {
           maxHeight: "100%",
           flex: "1",
           boxSizing: "border-box",
-          padding:"10px",
-          overflowY:"auto",
+          padding: "10px",
+          overflowY: "auto",
         }}
         spacing={0}
       >
         <Grid
           direction="column"
-          justify="flex-start"
+          justify="center"
           container
           item
           xs={0}
           md={2}
-          className=""
+          id="forelshabab"
         >
-          <Grid item xs="1" ></Grid>
+          {/* <Grid item xs="1"></Grid> */}
+          <div id="semiCircle">
+
+          </div>
           <SideBar />
         </Grid>
         <Grid
@@ -467,9 +471,9 @@ function UserMain() {
           md={10}
           className="main"
         >
-          <videoIDContext.Provider value = {{video,setVideo}}>
+          <videoIDContext.Provider value={{ video, setVideo }}>
             <Home video={video} />
-          </videoIDContext.Provider >
+          </videoIDContext.Provider>
         </Grid>
       </Grid>
     </Grid>
