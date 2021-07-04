@@ -1,0 +1,26 @@
+.accountMainBody {
+    /* background-image: url("../../assets/img/trial2.jpg"); */
+    background-color: gray;
+    background-repeat: no-repeat;
+    background-size: cover;
+  position: relative !important;
+  flex: 10;
+}
+.svg__Header {
+  position: relative;
+  font-size: 3em;
+  color: #2f5db4;
+  text-align: center;
+}
+.align__Div {
+  display: flex;
+  height: 100%;
+}
+.image__Section {
+  display: block;
+  align-self: flex-end;
+  z-index: 4;
+  padding: 0px 20px;
+  width: 100%;
+  height: 95%;
+}

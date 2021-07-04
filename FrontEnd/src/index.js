@@ -8,6 +8,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/Auth";
 import PublicRoute from "./router/PublicRoute";
 import PrivateRoute from "./router/PrivateRoute";
+import Account from "./layouts/Account/Account";
 // import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
@@ -17,6 +18,7 @@ ReactDOM.render(
         <Switch>
           <PublicRoute path="/login" component={SignInSignUpPage} />
           <Route path="/userhome" component={UserMain} />
+          <Route path="/account" component={Account}/>
         </Switch>
       </div>
     </BrowserRouter>
