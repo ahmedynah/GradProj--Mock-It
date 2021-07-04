@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 import { CallMissedSharp } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
-import React , { useState ,useContext } from "react";
+import React , { useState ,useContext,useEffect } from "react";
 import { Button, Container } from "@material-ui/core";
 import AppBar from "../../Components/App Bar/AppBar";
 import MovieIcon from "@material-ui/icons/Movie";
@@ -11,6 +11,7 @@ import axios from 'axios'
 import firebase from "../../config/Firebase";
 import videoImg from "../../assets/img/background1.jpg";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import VideoPlayer from 'simple-react-video-thumbnail'
 import "./UserMain.css";
 const firestore = firebase.firestore();
 
@@ -260,28 +261,57 @@ function Tip() {
 }
 function Reel({getVideos}) {
 
-  const videos = getVideos;
+  const [videos, setVideos] = useState("");
+  useEffect(()=>{
+    getVideos().then((result)=>{
+    
+      console.log("REELL",result); 
+      setVideos(result)
+      console.log("videooosss",videos.length)
+    })
+    
+}, [])
+  
+  
   return (
     <>
-      {videos.map((entry) => {
-        return (
+    
+      {videos? videos.map((entry) => {
+      console.log("videooosss",entry)
+        return (  
           <div
             className="videoThumbnail"
-            style={{ backgroundImage: `url(${entry})` }}
           >
+            <VideoPlayer videoUrl={entry.videoID} snapshotAt={10} />
             <h6 className="videoThumbnail__title">Video name</h6>
             <div className="videoThumbnail__overlay"></div>
           </div>
         );
-      })}
+      }): <div></div>}
     </>
   );
 }
 
-function Home({ video, setVideos ,  data, reel, Tips, upload }) {
+const getRecentVideos = async () => {
+  const modelsRef = firestore.collection('modelData');
+  // let user = ;
+  if(firebase.auth().currentUser)
+  {
+    const snapshot = await modelsRef.where('uID', '==', firebase.auth().currentUser.uid).get();
+    if (snapshot.empty) {
+      console.log('No matching documents.');
+      return;
+    }  
+    let list = [];
+    snapshot.forEach(doc => {
+      list.push(doc.data());
+    });
+    return list;
+  }
+};
 
-  // const [videoId,setVideoId] = useState("")
-
+function Home({ video, data, reel, Tips, upload }) {
+  
   const analysis = {
     first: "70%",
     second: "poor",
@@ -343,7 +373,7 @@ function Home({ video, setVideos ,  data, reel, Tips, upload }) {
       >
         <h4 className="ReelHeader">Recent Videos</h4>
         <div className="videoReel">
-          <Reel getVideos={setVideos} />
+          <Reel getVideos={getRecentVideos} />
         </div>
       </Grid>
       {/* </> */}
@@ -385,29 +415,14 @@ function Footer() {
     </>
   );
 }
-  const getRecentVideos = async () => {
-    const modelsRef = firestore.collection('modelData');
-    const snapshot = await modelsRef.where('uID', '==', firebase.auth().currentUser.uid).get();
-    if (snapshot.empty) {
-      console.log('No matching documents.');
-      return;
-    }  
-    let list = [];
-    snapshot.forEach(doc => {
-      console.log(doc.id, '=>', doc.data());
-      list.push(doc.data());
-});
-  return list;
-  };
 const videoIDContext = React.createContext({
   video:"",
-  setVideo: () => {},
-  setRecentVideos: getRecentVideos()
+  setVideo: () => {}
 });
 function UserMain() {
-  const [video, setVideo] = useState("");
-  const [recentVideos, setRecentVideos] = useState([]);
 
+  const [video, setVideo] = useState("");
+  
   return (
     <Grid container direction="column" style={{ height: "100%" }}>
       <WavesOpacity />
@@ -448,8 +463,8 @@ function UserMain() {
           md={10}
           className="main"
         >
-          <videoIDContext.Provider value = {{video,setVideo,setRecentVideos}}>
-            <Home video={video} setVideos={setRecentVideos}/>
+          <videoIDContext.Provider value = {{video,setVideo}}>
+            <Home video={video} />
           </videoIDContext.Provider >
         </Grid>
       </Grid>
