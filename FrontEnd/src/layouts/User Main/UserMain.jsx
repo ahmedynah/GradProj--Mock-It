@@ -28,12 +28,8 @@ async function postVideoAndPpt({ ppt, video, Name }) {
     });
 
   console.log(result.data);
-<<<<<<< HEAD
-  let pushData = firestore.collection("modelData").doc();
-=======
   const date = new Date();
    let pushData = firestore.collection("modelData").doc();
->>>>>>> main
   await pushData.set({
     uID: firebase.auth().currentUser.uid,
     videoID: result.data.videoPath,
