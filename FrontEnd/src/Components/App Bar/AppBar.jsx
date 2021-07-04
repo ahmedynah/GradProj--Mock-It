@@ -18,6 +18,7 @@ import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import './AppBar.css'
 import logo from '../../assets/img/mock-it-logo.png'
+import firebase from "../../config/Firebase";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -100,9 +101,11 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(null);
   };
 
-  const handleMenuClose = () => {
+  const handleMenuClose = (event) => {
     setAnchorEl(null);
     handleMobileMenuClose();
+    if(event.target.id === "signout")
+    firebase.auth().signOut();
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -120,9 +123,9 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>
+      <MenuItem id="account" onClick={handleMenuClose}>
         <AssignmentIndIcon/> {'\u00A0'} Account</MenuItem>
-      <MenuItem onClick={handleMenuClose}>
+      <MenuItem id="signout" onClick={handleMenuClose}>
         <MeetingRoomIcon/> {'\u00A0'} Sign out</MenuItem>
     </Menu>
   );
