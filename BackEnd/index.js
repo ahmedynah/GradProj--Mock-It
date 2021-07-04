@@ -1,5 +1,4 @@
 const express = require("express");
-
 var cors = require('cors');
 const fs = require("fs");
 const util = require("util");
@@ -9,8 +8,8 @@ const path = require("path");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 const { uploadFile, getFileStream } = require("./s3");
-
 const app = express();
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -30,6 +29,7 @@ const corsOpts = {
 
 app.use(cors(corsOpts));
 app.get("/videos/:key", (req, res) => {
+  console.log("ss");
     console.log(req.params);
     const key = req.params.key;
     const readStream = getFileStream(key);
@@ -38,19 +38,33 @@ app.get("/videos/:key", (req, res) => {
   });
 
 // create middleware function (upload.single)
-app.post('/videos', upload.single('video'), async (req, res) => {
-  const file = req.file
-  res.send('Recieved file successfuly. ' + file.originalname)
-  console.log(file)
+app.post('/videos', upload.array('video', 2), async (req, res) => {
+  const file = req.files
+  // res.send('Recieved file successfuly. ' + file.originalname)
+  // console.log(req);
+  // console.log(file)
 
   // apply filter
   // resize 
-
-  const result = await uploadFile(file)
-  await unlinkFile(file.path)
+  const unlinkAll = async (path) =>
+  {
+    console.log(path);
+    await unlinkFile(path)
+  }
+  currentVideoID = file[0].path.split("/")[1];
+  currentPptID = file[1].path.split("/")[1];
+  console.log(file[0].path.split("/")[1]);
+  const result = await uploadFile(file[0])
+  const result2 = await uploadFile(file[1])
+  // console.log(file[0].path);
+  file.forEach((file) =>{
+    console.log(file.path);
+    unlinkAll(file.path)
+  })
   console.log(result)
   const description = req.body.description
-  res.send({videoPath: `/videos/${result.Key}`})
+  res.send({videoPath: `/videos/${result.Key}` , pptPath: `/videos/${result2.Key}`});
+  //res.send({videoPath: })
 })
 
 const port = process.env.PORT || 5000;
