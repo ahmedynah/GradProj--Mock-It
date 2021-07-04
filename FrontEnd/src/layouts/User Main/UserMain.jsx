@@ -26,11 +26,13 @@ async function postVideoAndPpt({ppt, video, Name}) {
   });
 
   console.log(result.data);
+  const date = new Date();
    let pushData = firestore.collection("modelData").doc();
   await pushData.set({
     uID: firebase.auth().currentUser.uid,
     videoID: result.data.videoPath,
     pptID: result.data.pptPath,
+    date: date.getDate(),
     results: [],
     name: Name
   });
@@ -94,7 +96,7 @@ function MainVideo({ videoSrc, videoName, date, overallScore, submittedTo }) {
           <h3 className="info__title">{videoName}</h3>
           <div className="info__Date">
             <h5>Date: </h5>
-            <p>{date || "25-06-2015"}</p>
+            <p>{date || new Date().toLocaleDateString()}</p>
           </div>
           <div className="info__OverallScore">
             <h5>Overall Score: </h5>
@@ -165,7 +167,7 @@ function UploadElements() {
     const resultVideo = await postVideoAndPpt({ppt: file , video: videoFile, Name: Name});
     console.log("dy al result video");
     console.log(resultVideo);
-    videoContext1.setVideo(resultVideo.videoPath)
+    videoContext1.setVideo({vidID: resultVideo.videoPath, vidName: Name, date: new Date().toLocaleDateString()});
     setVideos([resultVideo.video, ...videos])
     // console.log(pptFiles);
     // console.log(videos);
@@ -271,7 +273,14 @@ function Reel({getVideos}) {
     })
     
 }, [])
-  
+  let videoContext = useContext(videoIDContext);
+  const handleOnClick = (event) => {
+    console.log(event.target);
+    videos.forEach((vid)=>{
+      if(vid.videoID === event.target.id)
+      videoContext.setVideo({vidID: vid.videoID, vidName: vid.name, date: vid.date})
+    });
+  };
   
   return (
     <>
@@ -279,18 +288,20 @@ function Reel({getVideos}) {
       {videos? videos.map((entry) => {
       console.log("videooosss",entry)
         return (  
-           <Link to="/analytics">
+         
           <div
             className="videoThumbnail"
+            id={entry.videoID}
+            onClick={handleOnClick}
           >
          
-           <video key={entry.videoID} className="videoThumbnail">
+           <video on style={{pointerEvents: "none"}}  key={entry.videoID} className="videoThumbnail">
              <source src={entry.videoID}></source>
            </video>
-            <h6 className="videoThumbnail__title">{entry.name}</h6>
-            <div className="videoThumbnail__overlay"></div>
+            <h6 style={{pointerEvents: "none"}} className="videoThumbnail__title">{entry.name}</h6>
+            <div style={{pointerEvents: "none"}} className="videoThumbnail__overlay"></div>
           </div>
-          </Link>
+         
         );
       }): <div></div>}
     </>
@@ -365,7 +376,7 @@ function Home({ video, data, reel, Tips, upload }) {
         style={{ margin: "10px" }}
         spacing={2}
       >
-        <MainVideo videoSrc={video} videoName="Nature" />
+        <MainVideo videoSrc={video.vidID} videoName={video.vidName} date={video.date} />
         <MainAnalysis analysis={analysis} />
       </Grid>
       <Grid
@@ -421,12 +432,12 @@ function Footer() {
   );
 }
 const videoIDContext = React.createContext({
-  video:"",
+  video: {},
   setVideo: () => {}
 });
 function UserMain() {
 
-  const [video, setVideo] = useState("");
+  const [video, setVideo] = useState({});
   
   return (
     <Grid container direction="column" style={{ height: "100%" }}>
