@@ -219,7 +219,7 @@ function Account() {
                   className="basicInfo__LeftSection"
                 >
                   <div className="align__Div">
-                    {(img && (
+                    {(!img && (
                       <Avatar src={ahmedImg} id="avatar__Section"></Avatar>
                     )) || (
                       <img

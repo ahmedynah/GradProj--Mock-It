@@ -19,7 +19,6 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import firebase from "../../config/Firebase";
 import './AppBar.css'
 import logo from '../../assets/img/mock-it-logo.png'
-import firebase from "../../config/Firebase";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
