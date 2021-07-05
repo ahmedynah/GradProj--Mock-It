@@ -46,7 +46,7 @@
   position: absolute;
   z-index: 2;
   top: 0;
-  left: 0;
+  left: 0px;
   width: 100%;
   overflow: hidden;
   line-height: 0;
@@ -57,7 +57,7 @@
 .custom-shape-divider-top-1625405656 svg {
   position: relative;
   display: block;
-  width: calc(120%);
+  width: calc(170%);
   height: 300px;
 }
 
@@ -69,8 +69,7 @@
 @media (max-width: 767px) {
   .custom-shape-divider-top-1625405656 svg {
       position: relative;
-      z-index: -1000;
-      width: calc(122%);
-      height: 169px;
+      width: calc(170%);
+      height: 400px;
   }
 }

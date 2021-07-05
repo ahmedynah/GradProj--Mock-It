@@ -1,10 +1,14 @@
 .accountMainBody {
-    /* background-image: url("../../assets/img/trial2.jpg"); */
-    background-color: gray;
-    background-repeat: no-repeat;
-    background-size: cover;
-  position: relative !important;
+  /* background-image: url("../../assets/img/match-color-photoshop03.jpg"); */
+  /* backdrop-filter: blur(50px); */
+  background-color: #2f2d39;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
   flex: 10;
+  height: fit-content;
+  box-shadow: 10px 10px 10px 2px rgba(0, 0, 0, 0.1),
+    -10px -10px 10px -2px rgba(0, 0, 0, 0.1);
 }
 .svg__Header {
   position: relative;
@@ -12,15 +16,218 @@
   color: #2f5db4;
   text-align: center;
 }
+.roundedBorders {
+  border: 1px solid white;
+  border-radius: 33px;
+}
 .align__Div {
   display: flex;
   height: 100%;
 }
+.blur {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  height: 100%;
+  width: 100%;
+}
+#avatar__Section {
+  width: 250px;
+  height: 300px;
+  position: relative;
+  z-index: 100;
+  align-self: center;
+  margin-inline: auto;
+}
+
 .image__Section {
   display: block;
   align-self: flex-end;
   z-index: 4;
   padding: 0px 20px;
   width: 100%;
-  height: 95%;
+  height: 90%;
+}
+.content {
+  width: 100%;
+  box-sizing: border-box;
+  height:fit-content;
+  position: relative;
+  z-index: 100;
+  padding-bottom: 30px;
+  padding: 60px 10px 20px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+.userName {
+  font-size: 2em;
+  color: white;
+  width: 100%;
+  height: 1.5em;
+  text-align: left;
+  font-weight: 1000;
+  text-shadow: 2px 2px 20px white;
+}
+.mainData {
+    padding-left: 20px;
+    width: 100%;
+    height: 60%;
+    /* margin-block:auto ; */
+  }
+.formDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: fit-content;
+  padding: 10px;
+}
+
+.singleDataDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  color: white;
+  font-size: 0.9em;
+  /* height: 5em; */
+  margin: 0px 0px;
+  width:40%;
+}
+.horizontalDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 20px;
+  width: 100%;
+}
+.dataFieldName {
+    margin: 10px 0px 20px;
+    height: 1em;
+  }
+.dataInput {
+  margin: -5px 0px 0px;
+  height: 2em;
+  background-color: transparent;
+  outline: none;
+  border: 0px;
+  font-size: 1.25em;
+  color: white;
+  border-bottom: 1px solid black;
+  width: 100%;
+}
+.gender {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: white;
+  width: fit-content;
+  font-size: 0.9em;
+  /* margin: 0px 0px; */
+}
+.dataInput:focus {
+  color: #7d7f83;
+  background-color: transparent;
+}
+
+.dataInput:focus {
+  border-bottom: 1px solid #16a6fb;
+}
+.submitBtn{
+ width: 20%;
+ align-self: flex-end;  
+ margin: 20px 20px 0px !important; 
+ background-color: #338ed8 !important;
+ color:white !important;
+}
+/*----------*/
+.dataDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  color: white;
+  font-size: 0.9em;
+  height: 2em;
+}
+
+.data {
+  display: flex;
+  margin-left: 12px;
+}
+@media screen and (max-width: 1280px) {
+    .dataFieldName{
+        font-size: 1em;
+    }
+    .dataInput{
+        font-size: 0.9em;
+    }
+    .basicInfo__LeftSection{
+        height: fit-content;
+        flex-direction: row;
+    }
+    .basicInfo__RightSection{
+    align-items: flex-start !important;
+    }
+  .content {
+    justify-content: center;
+    padding: 0px 0px 30px;
+    width:70%
+  }
+  .align__Div{
+      width:fit-content;
+      margin-inline: auto;
+      justify-content: center;
+      height: 60%;
+  }
+  .image__Section {
+    align-self: center;
+    height: fit-content;
+    border-radius: 50%;
+    max-height: 120px;
+    width: 20%;
+    min-width: 120px;
+    padding: 0px;
+    box-shadow: 1px 1px 10px -4px rgba(0, 0, 0, 0.8),
+      -1px -1px 10px -4px rgba(0, 0, 0, 0.8);
+    margin-inline: 15px;
+    margin-top: 15px;
+  }
+  #avatar__Section{
+      margin-top: 10px;
+      height: 150px;
+      width: 150px;
+      box-shadow: 1px 1px 10px -4px rgba(0, 0, 0, 0.8),
+      -1px -1px 10px -4px rgba(0, 0, 0, 0.8);
+  }
+  .userName{
+      text-align: center;
+  }
+  .formDiv{
+      align-items: center;
+      justify-content: space-around;
+      padding: 0px;
+  }
+}
+
+
+@media screen and (max-width: 650px) {
+  .image__Section {
+    align-self: flex-start;
+    height: 40%;
+    border-radius: 50%;
+    min-width: 150px;
+  }
+  .dataFieldName{
+    font-size: 0.8em;
+}
+.dataInput{
+    font-size: 0.7em;
+}
+  
+  /* .dataInput{
+      width:100px;
+      font-size: 0.9em;
+  } */
 }
