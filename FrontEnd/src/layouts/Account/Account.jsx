@@ -8,10 +8,12 @@ import {
   Button,
 } from "@material-ui/core";
 import { CurveShape, CurveInverted } from "../../assets/svg/svg.jsx";
+import firebase from "../../config/Firebase";
 import ahmedImg from "../../assets/img/Formal_Image-removebg-preview.png";
 import coverImg from "../../assets/img/trial2.jpg";
 import "./Account.css";
 import { width } from "@material-ui/system";
+const firestore = firebase.firestore();
 
 let img;
 /**
@@ -31,6 +33,33 @@ function Account() {
      * @param {string} overallScore
      * @returns UserData Component
      */
+
+     const [completeReg, setCompleteReg] = useState(false);
+    const [userDoc, setUserDoc] = useState({});
+
+     async function getUserDataFromDB()
+    {
+       const usersRef = firestore.collection("users");
+      // let user = ;
+      if (firebase.auth().currentUser) {
+        const snapshot = await usersRef
+          .doc(firebase.auth().currentUser.uid)
+          .get();
+        if (snapshot.empty) {
+          console.log("No matching documents.");
+          setCompleteReg(false);
+          return;
+        }else
+        setCompleteReg(true);
+       return snapshot.data();
+      }
+
+    }
+     useEffect(() => {
+      getUserDataFromDB().then((result)=> {
+        setUserDoc(result);
+      })  
+    }, [])
   function UserData({
     firstName,
     lastName,
@@ -39,6 +68,7 @@ function Account() {
     dob,
     job,
     overallScore,
+    compReg
   }) {
       /**
        * States for userData Component
@@ -60,8 +90,31 @@ function Account() {
       else if (e.target.name === "job") setJob(e.target.value);
     }
 
+    async function completeRegInDB() {
+      if(!compReg && firebase.auth().currentUser)
+      {
+         let pushData = firestore.collection("users").doc(firebase.auth().currentUser.uid);
+          await pushData.set({
+            firstname: FirstName,
+            lastname: LastName,
+            email: firebase.auth().currentUser.email,
+            dob: Dob,
+            gender: Gender,
+            job: Job,
+          });
+      }else if(compReg)
+      {
+        setCompleteReg(false);
+      }
+    }
+
     useEffect(() => {
       console.log("in Effect");
+      if(compReg)
+      {
+        setGender(userDoc.gender);
+        return;
+      }
       Array.from(document.querySelector("#gender").options).forEach(function (
         option_element
       ) {
@@ -78,7 +131,7 @@ function Account() {
         console.log("\n\r");
       });
     }, [Gender]);
-
+  
     return (
       <div className="content">
         <h1 className="userName">
@@ -87,7 +140,7 @@ function Account() {
           {LastName}
         </h1>
         <div className="mainData">
-          <form className="formDiv">
+          <div className="formDiv">
             <div className="horizontalDiv">
               <div className="singleDataDiv">
                 <h2 className="dataFieldName">First Name:</h2>
@@ -121,7 +174,7 @@ function Account() {
                   id="gender"
                   onChange={handleEditClicked}
                 >
-                  <option value="Gender">Gender</option>
+                  <option value="Gender">{compReg ? userDoc.gender : "Gender"}</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                   {/* <input type="text" value={firstName} placeholder="First Name" onChange={handleEditClicked} className="firstName"></input> */}
@@ -147,8 +200,8 @@ function Account() {
                   value={Email}
                   name="email"
                   placeholder="example@gmail.com"
-                  onChange={handleEditClicked}
                   className="dataInput"
+                  disabled
                 ></input>
               </div>
               <div className="singleDataDiv">
@@ -163,10 +216,10 @@ function Account() {
                 ></input>
               </div>
             </div>
-            <Button type="submit" className="submitBtn">
-              Save
+            <Button onClick={completeRegInDB} type="submit" className="submitBtn">
+              {compReg ? "Edit" : "Save"}
             </Button>
-          </form>
+          </div>
         </div>
       </div>
     );
@@ -241,11 +294,13 @@ function Account() {
                 >
                   
                     <UserData
-                      firstName="Ahmed"
-                      lastName="Abouelnasr"
-                      email="ahmedhanyhasn@gmail.com"
-                      gender="Male"
-                      DOB="25-10-2016"
+                      compReg={completeReg}
+                      firstName={ completeReg ? userDoc.firstname : firebase.auth().currentUser.displayName}
+                      lastName={ completeReg ? userDoc.lastname : ""}
+                      email={firebase.auth().currentUser.email}
+                      gender={ completeReg ? userDoc.gender : "Gender"}
+                      dob={ completeReg ? userDoc.dob : ""}
+                      job={ completeReg ? userDoc.job : ""}
                     />
                 </Grid>
               </Grid>
