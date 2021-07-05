@@ -9,6 +9,7 @@ import { AuthProvider } from "./contexts/Auth";
 import PublicRoute from "./router/PublicRoute";
 import PrivateRoute from "./router/PrivateRoute";
 import Account from "./layouts/Account/Account";
+import test from "./test";
 // import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
@@ -19,6 +20,7 @@ ReactDOM.render(
           <PublicRoute path="/login" component={SignInSignUpPage} />
           <PrivateRoute path="/account" component={Account} />
           <PrivateRoute path="/dashboard" component={UserMain} />
+          <Route path="/test" component={test}/>
         </Switch>
       </div>
     </BrowserRouter>
