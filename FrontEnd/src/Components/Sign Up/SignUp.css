@@ -87,7 +87,7 @@
 }
 
 .content--form__input {
-  height: 30px;
+  height: 60px !important;
   width: 300px;
   padding: 10px;
   outline: none;
