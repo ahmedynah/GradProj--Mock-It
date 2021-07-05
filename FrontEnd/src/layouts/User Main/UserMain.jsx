@@ -282,8 +282,8 @@ function Reel({getVideos}) {
           <div
             className="videoThumbnail"
           >
-            <VideoPlayer videoUrl={entry.videoID} snapshotAt={10} />
-            <h6 className="videoThumbnail__title">Video name</h6>
+            <VideoPlayer style={{ pointerevents: "none"}} videoUrl={entry.videoID} snapshotAt={10} />
+            <h6 className="videoThumbnail__title">{entry.name}</h6>
             <div className="videoThumbnail__overlay"></div>
           </div>
         );

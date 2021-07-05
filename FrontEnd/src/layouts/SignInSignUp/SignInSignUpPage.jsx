@@ -32,5 +32,6 @@ return (
   </Grid>
   );
 }
+console.log("test");
 
 export default SignInSignUpPage;
