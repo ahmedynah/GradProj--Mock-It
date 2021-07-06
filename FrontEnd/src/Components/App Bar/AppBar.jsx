@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom"
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -124,7 +125,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem id="account" onClick={handleMenuClose}>
-        <AssignmentIndIcon/> {'\u00A0'} Account</MenuItem>
+        <AssignmentIndIcon/> {'\u00A0'}<Link to="/account">Account</Link></MenuItem>
       <MenuItem id="signout" onClick={handleMenuClose}>
         <MeetingRoomIcon/> {'\u00A0'} Sign out</MenuItem>
     </Menu>

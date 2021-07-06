@@ -58,7 +58,7 @@ function Account() {
      useEffect(() => {
       getUserDataFromDB().then((result)=> {
         setUserDoc(result);
-      })  
+      })
     }, [])
   function UserData({
     firstName,
@@ -107,6 +107,13 @@ function Account() {
         setCompleteReg(false);
       }
     }
+    const sendVerficationEmail = () => {
+      firebase.auth().currentUser.sendEmailVerification().then(()=>{
+        alert("Verfication email sent succesfully...");
+      }).catch((err) => {
+        alert("Something went wrong while verfying your email..");
+      })
+    };
 
     useEffect(() => {
       console.log("in Effect");
@@ -216,9 +223,13 @@ function Account() {
                 ></input>
               </div>
             </div>
+            <div className="d-flex">
             <Button onClick={completeRegInDB} type="submit" className="submitBtn">
               {compReg ? "Edit" : "Save"}
             </Button>
+             {!compReg || !firebase.auth().currentUser.emailVerified ? <Button onClick={sendVerficationEmail} style={{ width: "15rem" }} className="submitBtn">
+            Send Verification Message</Button> : null}
+            </div>
           </div>
         </div>
       </div>
@@ -291,12 +302,11 @@ function Account() {
                   justify="center"
                   alignItems="center"
                   className="basicInfo__RightSection"
-                >
-                  
+                > 
                     <UserData
                       compReg={completeReg}
-                      firstName={ completeReg ? userDoc.firstname : firebase.auth().currentUser.displayName}
-                      lastName={ completeReg ? userDoc.lastname : ""}
+                      firstName={ completeReg && userDoc.firstname ? userDoc.firstname.charAt(0).toUpperCase() + userDoc.firstname.slice(1) : firebase.auth().currentUser.displayName}
+                      lastName={ completeReg && userDoc.lastname ? userDoc.lastname.charAt(0).toUpperCase() + userDoc.lastname.slice(1) : ""}
                       email={firebase.auth().currentUser.email}
                       gender={ completeReg ? userDoc.gender : "Gender"}
                       dob={ completeReg ? userDoc.dob : ""}
