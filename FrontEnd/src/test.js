@@ -1,7 +1,7 @@
 import React from 'react';
 import * as bodyPix from "@tensorflow-models/body-pix";
 import * as tf from '@tensorflow/tfjs';
-import t from "./assets/img/IMAG2188 (3).jpg";
+import t from "./assets/img/me.jpg";
 // import { MarvinImage } from "marvinj";
 
 

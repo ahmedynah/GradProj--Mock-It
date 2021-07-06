@@ -59,6 +59,14 @@ function SignIn() {
       setPass(e.target.value); 
   };
 
+  const handleResetPass = () => {
+    firebase.auth().sendPasswordResetEmail(email).then(()=>{
+       alert("Succesfully sent a reset email..");
+    }).catch((err) => {
+      alert("Make sure you entered a correct email");
+    });
+  };
+
   const handleSignIn = async (e) => {
     console.log(email.toLocaleLowerCase());
     e.preventDefault();
@@ -152,7 +160,7 @@ const handleReset = async (e) => {
             > Sign Up</Button>
           {console.log(openDialog)}
           <Dialog openDialog={openDialog} parentCallback={handleCallBack} />
-          <span className="form__forgotPassword"> Forgot your Password?</span>
+          <span onClick={handleResetPass} className="form__forgotPassword"> Forgot your Password?</span>
         </div>
             </Grid>
       </Grid>
