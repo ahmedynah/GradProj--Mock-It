@@ -14,6 +14,7 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
         currentUser !== "Loading..." ? (
           currentUser ? (
             <RouteComponent {...routeProps} />
+            // currentUser.emailVerified ?  <RouteComponent {...routeProps} />: <Redirect to={"/account"} />
           ) : (
             <Redirect to={"/login"} />
           )
