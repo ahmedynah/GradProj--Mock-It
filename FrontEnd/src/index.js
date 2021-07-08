@@ -13,18 +13,32 @@ import test from "./test";
 // import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <AuthProvider>
-    <BrowserRouter>
-      <div className="App">
+  <BrowserRouter>
+    <AuthProvider>
+      <div className="App"> 
         <Switch>
-          <PublicRoute path="/login" component={SignInSignUpPage} />
-          <PrivateRoute path="/account" component={Account} />
-          <PrivateRoute path="/dashboard" component={UserMain} />
-          <Route path="/test" component={test}/>
+          <PublicRoute
+            exact
+            path="/"
+            redirectionPath="/account"
+            component={SignInSignUpPage}
+          />
+          <PrivateRoute
+            path="/account"
+            redirectionPath="/"
+            component={Account}
+          />
+          <PrivateRoute
+            path="/dashboard"
+            redirectionPath="/"
+            invalidRedirectionPath="/account"
+            component={UserMain}
+          />
+          <Route path="/test" component={test} />
         </Switch>
       </div>
-    </BrowserRouter>
-  </AuthProvider>,
+    </AuthProvider>
+  </BrowserRouter>,
   document.getElementById("root")
 );
 

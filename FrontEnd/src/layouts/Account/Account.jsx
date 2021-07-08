@@ -58,6 +58,7 @@ function Account() {
      useEffect(() => {
       getUserDataFromDB().then((result)=> {
         setUserDoc(result);
+        console.log(result);  
       })
     }, [])
   function UserData({
@@ -305,9 +306,9 @@ function Account() {
                 > 
                     <UserData
                       compReg={completeReg}
-                      firstName={ completeReg && userDoc.firstname ? userDoc.firstname.charAt(0).toUpperCase() + userDoc.firstname.slice(1) : firebase.auth().currentUser.displayName}
+                      firstName={ completeReg && userDoc.firstname ? userDoc.firstname.charAt(0).toUpperCase() + userDoc.firstname.slice(1) : ""}
                       lastName={ completeReg && userDoc.lastname ? userDoc.lastname.charAt(0).toUpperCase() + userDoc.lastname.slice(1) : ""}
-                      email={firebase.auth().currentUser.email}
+                      email={firebase.auth().currentUser ? firebase.auth().currentUser.email : ""}
                       gender={ completeReg ? userDoc.gender : "Gender"}
                       dob={ completeReg ? userDoc.dob : ""}
                       job={ completeReg ? userDoc.job : ""}

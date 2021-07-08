@@ -1,31 +1,37 @@
 import React, { useContext } from "react";
+import PropTypes from "prop-types";
 import { Route, Redirect } from "react-router-dom";
-
-import ClipLoader from "react-spinners/ClipLoader";
-
 import { AuthContext } from "../contexts/Auth";
 
-const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
-  var { currentUser } = useContext(AuthContext) || "Loading...";
+function PrivateRoute({
+  component,
+  exact,
+  path,
+  redirectionPath,
+  invalidRedirectionPath,
+}) {
+  const { currentUser } = useContext(AuthContext);
+
   return (
-    <Route
-      {...rest}
-      render={(routeProps) =>
-        currentUser !== "Loading..." ? (
-          currentUser ? (
-            <RouteComponent {...routeProps} />
-            // currentUser.emailVerified ?  <RouteComponent {...routeProps} />: <Redirect to={"/account"} />
-          ) : (
-            <Redirect to={"/login"} />
-          )
+    <>
+      {currentUser ? (
+        currentUser.emailVerified || !invalidRedirectionPath ? (
+          <Route path={path} exact={exact} component={component} />
         ) : (
-          <div style={{ textAlign: "center", marginTop: 330 }}>
-            <ClipLoader size={250} color={"#303238"} loading={true} />
-          </div>
+          <Redirect to={invalidRedirectionPath} />
         )
-      }
-    />
+      ) : (
+        <Redirect to={redirectionPath} />
+      )}
+    </>
   );
+}
+
+PrivateRoute.propTypes = {
+  exact: PropTypes.bool,
+  component: PropTypes.func.isRequired,
+  path: PropTypes.string.isRequired,
+  redirectionPath: PropTypes.string.isRequired,
 };
 
 export default PrivateRoute;

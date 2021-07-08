@@ -11,13 +11,13 @@ class Forbidden extends React.Component {
           className="bg-dark text-white py-5"
           style={{
             width: " 100vw",
-            height: "100vh"
+            height: "100vh",
           }}
         >
           <div
             className="container py-5"
             style={{
-              marginTop: "230px"
+              marginTop: "230px",
             }}
           >
             <div className="row">
@@ -47,10 +47,10 @@ class Forbidden extends React.Component {
                     firebase
                       .auth()
                       .signOut()
-                      .then(function() {
-                        window.location.href = "/login";
+                      .then(function () {
+                        window.location.href = "/";
                       })
-                      .catch(function(err) {
+                      .catch(function (err) {
                         console.log(err);
                       });
                   }}
