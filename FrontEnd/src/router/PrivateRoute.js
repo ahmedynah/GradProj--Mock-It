@@ -5,15 +5,20 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 import { AuthContext } from "../contexts/Auth";
 
+import Account from "../layouts/Account/Account";
 const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
   var { currentUser } = useContext(AuthContext) || "Loading...";
   return (
-    <Route
+    <Route 
       {...rest}
       render={(routeProps) =>
         currentUser !== "Loading..." ? (
           currentUser ? (
-            <RouteComponent {...routeProps} />
+            // <RouteComponent {...routeProps} />
+            currentUser.emailVerified ?  <RouteComponent {...routeProps} />: (
+            <Redirect to={"/account"} />,
+            <Account/>
+            )
           ) : (
             <Redirect to={"/login"} />
           )
