@@ -1,6 +1,8 @@
 require('dotenv').config()
 const fs = require('fs')
 const S3 = require('aws-sdk/clients/s3')
+const express = require("express")
+const app = express();
 
 const bucketName = process.env.AWS_BUCKET_NAME
 const region = process.env.AWS_BUCKET_REGION
@@ -14,9 +16,17 @@ const s3 = new S3({
 })
 
 // uploads a file to s3
-function uploadFile(file) {
+function uploadFile(file,type) {
   const fileStream = fs.createReadStream(file.path)
-
+  // if (type == "ppt")
+  // {
+  //   console.log(type);
+  //   app.post("https://mockit.herokuapp.com/mockit/upload_slides/",(req,res) => {
+  //     console.log("i am hereeeeeeeeeeee");
+  //       res.sendFile(fileStream)
+  //   });
+  // }
+    
   const uploadParams = {
     Bucket: bucketName,
     Body: fileStream,
