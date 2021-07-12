@@ -305,10 +305,10 @@ function Account() {
                 > 
                     <UserData
                       compReg={completeReg}
-                      firstName={ completeReg && userDoc.firstname ? userDoc.firstname.charAt(0).toUpperCase() + userDoc.firstname.slice(1) : firebase.auth().currentUser.displayName}
+                      firstName={ completeReg && userDoc.firstname ? userDoc.firstname?.charAt(0).toUpperCase() + userDoc.firstname?.slice(1) : firebase.auth().currentUser.displayName}
                       lastName={ completeReg && userDoc.lastname ? userDoc.lastname.charAt(0).toUpperCase() + userDoc.lastname.slice(1) : ""}
                       email={firebase.auth().currentUser.email}
-                      gender={ completeReg ? userDoc.gender : "Gender"}
+                      gender={ completeReg ? "Male" : "Gender"}
                       dob={ completeReg ? userDoc.dob : ""}
                       job={ completeReg ? userDoc.job : ""}
                     />

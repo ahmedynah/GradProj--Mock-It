@@ -10,6 +10,8 @@ import PublicRoute from "./router/PublicRoute";
 import PrivateRoute from "./router/PrivateRoute";
 import Account from "./layouts/Account/Account";
 import test from "./test";
+import Connections from "./layouts/Connections/Connections";
+import LandingPage from "./layouts/Landing Page/LandingPage";
 // import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
@@ -17,9 +19,11 @@ ReactDOM.render(
     <BrowserRouter>
       <div className="App">
         <Switch>
+          <PublicRoute path="/" component={LandingPage}/>
           <PublicRoute path="/login" component={SignInSignUpPage} />
-          <PrivateRoute path="/account" component={Account} />
           <PrivateRoute path="/dashboard" component={UserMain} />
+          <PrivateRoute path="/connections" component={Connections}/>
+          <PrivateRoute path="/account" component={Account} />
           <Route path="/test" component={test}/>
         </Switch>
       </div>

@@ -41,7 +41,7 @@
   }
 }
 
-/* used for account info */
+/* used for account info --- Asymmetric Curve shape*/
 .custom-shape-divider-top-1625405656 {
   position: absolute;
   z-index: 2;
@@ -73,3 +73,48 @@
       height: 400px;
   }
 }
+
+
+/* -------------Tilt--------------- */
+.custom-shape-divider-top-1624904894 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  line-height: 0;
+  z-index: -100;
+  transform: rotate(180deg);
+}
+
+.custom-shape-divider-top-1624904894 svg {
+  position: relative;
+  display: block;
+  width: calc(100%);
+  height: 900px;
+}
+
+.custom-shape-divider-top-1624904894 .shape-fill {
+  fill: #bbc7e0;
+}
+/*------------waves opacity------------*/
+.custom-shape-divider-top-1624973160 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  z-index: -100;
+  line-height: 0;
+}
+
+.custom-shape-divider-top-1624973160 svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 149px;
+}
+
+.custom-shape-divider-top-1624973160 .shape-fill {
+  fill: #bbc7e0;
+}
+/*-----------------------------*/

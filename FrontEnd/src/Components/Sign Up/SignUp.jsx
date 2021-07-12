@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid } from "@material-ui/core";
+import { Grid, CssBaseline } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -145,6 +145,7 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
 
   return (
     <>
+    <CssBaseline/>
       <Dialog
         fullWidth={fullWidth}
         maxWidth={maxWidth}
@@ -178,7 +179,9 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
             </span>
           </DialogContentText>
 
-          <Grid container className="content"justify="space-between" alignItems="center">
+          <Grid container item xs={12} className="contentSignUp" justify="center" >
+              <Grid item xs={0} lg={4}  justify="center">
+
               <div className="content--info">
                 <h2 id="flyingTextTop">Are you ready to</h2>
                 <h2 id="flyingTextCenter">LAUNCH </h2>
@@ -187,8 +190,10 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
                   <img src={Rocket} alt="" id="content--info__img" />
                 </div>
               </div>
-              <div className="content--form">
-                <div>
+              </Grid>
+              
+              <Grid item xs={6} justify="center">
+              <form className="content--form">
                   <input
                     className="content--form__input name--FN"
                     type="text"
@@ -198,7 +203,6 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
                     id="fn"
                     onChange={handleTextChange}
                   />
-                </div>
 
                 <input
                   className="content--form__input name--LN"
@@ -215,7 +219,7 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
                   <select
                     name="gender"
                     id="gender"
-                    className="content--form__input gender"
+                    className="content--form__input genderSignUp"
                     onChange={handleTextChange}
                   >
                     <option value="Gender" defaultValue>
@@ -261,12 +265,13 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
                   {"\u00A0"}and <a href=""> Cookies Policy</a>.
                 </span>
 
-                <button onClick={validateUser} className="form__submitBtn">
+                <button type="submit" onClick={validateUser} className="form__submitBtn">
                   {" "}
                   Sign Up
                 </button>
-              </div>
-              <div className="barrier">
+              </form>
+              </Grid>
+              {/* <div className="barrier">
                 <div className="verticalLine"></div>
                 <span className="barrier__word">OR</span>
                 <div className="verticalLine"></div>
@@ -274,7 +279,7 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
               <div className="content--signUpWith">
                 {/* <span className="content--signUpWith__header"> Sign Up with</span> */}
 
-                <div className="content--signUpWith__buttons">
+                {/* <div className="content--signUpWith__buttons">
                   <button className="btn">
                     <FacebookIcon id="facebookImage" />
                     <span className="btn__text">SIGN UP WITH FACEBOOK</span>
@@ -284,7 +289,7 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
                     <span className="btn__text">SIGN UP WITH GOOGLE</span>
                   </button>
                 </div>
-              </div>
+              </div> */}
           </Grid>
         </DialogContent>
         <DialogActions>
