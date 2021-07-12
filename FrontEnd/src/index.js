@@ -12,6 +12,7 @@ import Account from "./layouts/Account/Account";
 import test from "./test";
 import Connections from "./layouts/Connections/Connections";
 import LandingPage from "./layouts/Landing Page/LandingPage";
+
 // import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
@@ -25,6 +26,7 @@ ReactDOM.render(
           <PrivateRoute path="/connections" component={Connections}/>
           <PrivateRoute path="/account" component={Account} />
           <Route path="/test" component={test}/>
+     
         </Switch>
       </div>
     </BrowserRouter>

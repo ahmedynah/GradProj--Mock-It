@@ -54,8 +54,8 @@ app.post('/videos', upload.array('video', 2), async (req, res) => {
   currentVideoID = file[0].path.split("/")[1];
   currentPptID = file[1].path.split("/")[1];
   console.log(file[0].path.split("/")[1]);
-  const result = await uploadFile(file[0])
-  const result2 = await uploadFile(file[1])
+  const result = await uploadFile(file[0],"video")
+  const result2 = await uploadFile(file[1],"ppt")
   // console.log(file[0].path);
   file.forEach((file) =>{
     console.log(file.path);

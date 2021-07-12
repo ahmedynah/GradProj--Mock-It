@@ -50,8 +50,8 @@ function Account() {
           setCompleteReg(false);
           return;
         }else
-        setCompleteReg(true);
-       return snapshot.data();
+        { setCompleteReg(true)
+       return snapshot.data(); }
       }
 
     }
@@ -101,7 +101,7 @@ function Account() {
             dob: Dob,
             gender: Gender,
             job: Job,
-          });
+          }).then(()=>{ setCompleteReg(true); });
       }else if(compReg)
       {
         setCompleteReg(false);
@@ -117,7 +117,7 @@ function Account() {
 
     useEffect(() => {
       console.log("in Effect");
-      if(compReg)
+      if(compReg && firebase.auth().currentUser.providerData[0].providerId == "password")
       {
         setGender(userDoc.gender);
         return;
@@ -181,7 +181,7 @@ function Account() {
                   id="gender"
                   onChange={handleEditClicked}
                 >
-                  <option value="Gender">{compReg ? userDoc.gender : "Gender"}</option>
+                  <option value="Gender">{(compReg && firebase.auth().currentUser.providerData[0].providerId == "password") ? userDoc.gender : "Gender"}</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                   {/* <input type="text" value={firstName} placeholder="First Name" onChange={handleEditClicked} className="firstName"></input> */}
@@ -305,12 +305,12 @@ function Account() {
                 > 
                     <UserData
                       compReg={completeReg}
-                      firstName={ completeReg && userDoc.firstname ? userDoc.firstname?.charAt(0).toUpperCase() + userDoc.firstname?.slice(1) : firebase.auth().currentUser.displayName}
-                      lastName={ completeReg && userDoc.lastname ? userDoc.lastname.charAt(0).toUpperCase() + userDoc.lastname.slice(1) : ""}
+                      firstName={ (completeReg && firebase.auth().currentUser.providerData[0].providerId == "password") ? userDoc.firstname.charAt(0).toUpperCase() + userDoc.firstname.slice(1) : firebase.auth().currentUser.displayName}
+                      lastName={ completeReg && firebase.auth().currentUser.providerData[0].providerId == "password"  ? userDoc.lastname.charAt(0).toUpperCase() + userDoc.lastname.slice(1) : ""}
                       email={firebase.auth().currentUser.email}
-                      gender={ completeReg ? "Male" : "Gender"}
-                      dob={ completeReg ? userDoc.dob : ""}
-                      job={ completeReg ? userDoc.job : ""}
+                      gender={ (completeReg && firebase.auth().currentUser.providerData[0].providerId == "password") ? userDoc.gender : "Gender"}
+                      dob={ (completeReg && firebase.auth().currentUser.providerData[0].providerId == "password") ? userDoc.dob : ""}
+                      job={ (completeReg && firebase.auth().currentUser.providerData[0].providerId == "password") ? userDoc.job : ""}
                     />
                 </Grid>
               </Grid>
