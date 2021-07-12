@@ -20,13 +20,12 @@ ReactDOM.render(
     <BrowserRouter>
       <div className="App">
         <Switch>
-          <PublicRoute path="/" component={LandingPage}/>
           <PublicRoute path="/login" component={SignInSignUpPage} />
           <PrivateRoute path="/dashboard" component={UserMain} />
-          <PrivateRoute path="/connections" component={Connections}/>
+          <PrivateRoute path="/connections" component={Connections} />
           <PrivateRoute path="/account" component={Account} />
-          <Route path="/test" component={test}/>
-     
+          <Route path="/test" component={test} />
+          <PublicRoute exact path="/" component={LandingPage} />
         </Switch>
       </div>
     </BrowserRouter>

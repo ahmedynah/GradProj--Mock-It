@@ -27,22 +27,22 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
   const [pass, setPass] = useState("");
   const [rePass, setRePass] = useState("");
 
-   const uiConfig = {
-  // Popup signin flow rather than redirect flow.
-  signInFlow: 'popup',
-  // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-  signInSuccessUrl: '/profile',
-  // We will display Google and Facebook as auth providers.
-  signInOptions: [
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-  ],
-  callbacks: {
-    signInSuccessWithAuthResult: () => {
-     console.log(firebase.auth().currentUser.providerData[0].providerId);
-    }
-  }
-};
+  const uiConfig = {
+    // Popup signin flow rather than redirect flow.
+    signInFlow: "popup",
+    // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
+    signInSuccessUrl: "/profile",
+    // We will display Google and Facebook as auth providers.
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+    ],
+    callbacks: {
+      signInSuccessWithAuthResult: () => {
+        console.log(firebase.auth().currentUser.providerData[0].providerId);
+      },
+    },
+  };
 
   //   const handleClickOpen = () => {
   //     setOpen(true);
@@ -57,95 +57,77 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
     parentCallback(false);
   };
 
-
-   const handleTextChange = (e) => {
-    if(e.target.id === "fn")
-      setFn(e.target.value);
-    else if(e.target.id === "ln")    
-      setLn(e.target.value);
-    else if(e.target.id === "date")    
-      setDate(e.target.value)
-    else if(e.target.id === "gender")    
+  const handleTextChange = (e) => {
+    if (e.target.id === "fn") setFn(e.target.value);
+    else if (e.target.id === "ln") setLn(e.target.value);
+    else if (e.target.id === "date") setDate(e.target.value);
+    else if (e.target.id === "gender")
       setGender(e.target.options[e.target.options.selectedIndex].innerHTML);
-    else if(e.target.id === "email")    
-      setEmail(e.target.value);
-    else if(e.target.id === "pass")    
-      setPass(e.target.value); 
-    else if(e.target.id === "repass")    
-      setRePass(e.target.value); 
+    else if (e.target.id === "email") setEmail(e.target.value);
+    else if (e.target.id === "pass") setPass(e.target.value);
+    else if (e.target.id === "repass") setRePass(e.target.value);
   };
-  
+
   const validateUser = async (e) => {
     e.preventDefault();
     const passptrn = /[a-zA-Z0-9]{8,}/;
-    if(fn === "")
-    {
+    if (fn === "") {
       console.log("Enter your first name...");
       return;
-    }
-    else if(ln === "")
-    {
+    } else if (ln === "") {
       console.log("Enter your last name...");
       return;
-    }
-    else if(gender === "Gender")
-    {
+    } else if (gender === "Gender") {
       console.log("Choose your gender...");
       return;
-    } 
-    else if(date === "")
-    {
+    } else if (date === "") {
       console.log("Choose your birth date...");
       return;
     }
-     if(pass === rePass)
-    { console.log("same pass");
-      if(passptrn.test(pass))
-      {
-         console.log("correct pass");
+    if (pass === rePass) {
+      console.log("same pass");
+      if (passptrn.test(pass)) {
+        console.log("correct pass");
         let verfied = true;
         console.log(email.toLocaleLowerCase());
-        await firebase.auth().createUserWithEmailAndPassword(email.toLocaleLowerCase(), pass)
-         .catch((error) => {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // ...
-        if( errorCode === "auth/email-already-in-use" )
-        {
-            verfied = false;
-            firebaseErr = true;
-            console.log(errorCode);
-        }else
-         console.log(errorCode);
-        });
+        await firebase
+          .auth()
+          .createUserWithEmailAndPassword(email.toLocaleLowerCase(), pass)
+          .catch((error) => {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // ...
+            if (errorCode === "auth/email-already-in-use") {
+              verfied = false;
+              firebaseErr = true;
+              console.log(errorCode);
+            } else console.log(errorCode);
+          });
 
-        if(verfied)
-        {
-           var pushData = await firestore.collection('users').doc(firebase.auth().currentUser.uid);
-           pushData.set({
-             firstname: fn,
-             lastname: ln,
-             email: email,
-             dob: date,
-             gender: gender
-           });
+        if (verfied) {
+          var pushData = await firestore
+            .collection("users")
+            .doc(firebase.auth().currentUser.uid);
+          pushData.set({
+            firstname: fn,
+            lastname: ln,
+            email: email,
+            dob: date,
+            gender: gender,
+          });
         }
-
-      }else
-      {
+      } else {
         console.log("Password must be at least 8 characters...");
         return;
       }
-    }else
-    {
-
+    } else {
     }
   };
 
   return (
     <>
-    <CssBaseline/>
+      <CssBaseline />
       <Dialog
         fullWidth={fullWidth}
         maxWidth={maxWidth}
@@ -179,9 +161,14 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
             </span>
           </DialogContentText>
 
-          <Grid container item xs={12} className="contentSignUp" justify="center" >
-              <Grid item xs={0} lg={4}  justify="center">
-
+          <Grid
+            container
+            item
+            xs={12}
+            className="contentSignUp"
+            justify="center"
+          >
+            <Grid item xs={0} lg={4} justify="center">
               <div className="content--info">
                 <h2 id="flyingTextTop">Are you ready to</h2>
                 <h2 id="flyingTextCenter">LAUNCH </h2>
@@ -190,19 +177,19 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
                   <img src={Rocket} alt="" id="content--info__img" />
                 </div>
               </div>
-              </Grid>
-              
-              <Grid item xs={6} justify="center">
+            </Grid>
+
+            <Grid item xs={6} justify="center">
               <form className="content--form">
-                  <input
-                    className="content--form__input name--FN"
-                    type="text"
-                    placeholder="First Name"
-                    maxLength="32"
-                    pattern="[A-Za-z]+"
-                    id="fn"
-                    onChange={handleTextChange}
-                  />
+                <input
+                  className="content--form__input name--FN"
+                  type="text"
+                  placeholder="First Name"
+                  maxLength="32"
+                  pattern="[A-Za-z]+"
+                  id="fn"
+                  onChange={handleTextChange}
+                />
 
                 <input
                   className="content--form__input name--LN"
@@ -214,12 +201,17 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
                   onChange={handleTextChange}
                 />
                 <div className="DateAndGender">
-                  <input  id="date" onChange={handleTextChange} className="content--form__input date" type="date" />
+                  <input
+                    id="date"
+                    onChange={handleTextChange}
+                    className="content--form__input date"
+                    type="date"
+                  />
 
                   <select
                     name="gender"
                     id="gender"
-                    className="content--form__input genderSignUp"
+                    className="genderSignUp content--form__input"
                     onChange={handleTextChange}
                   >
                     <option value="Gender" defaultValue>
@@ -265,13 +257,17 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
                   {"\u00A0"}and <a href=""> Cookies Policy</a>.
                 </span>
 
-                <button type="submit" onClick={validateUser} className="form__submitBtn">
+                <button
+                  type="submit"
+                  onClick={validateUser}
+                  className="form__submitBtn"
+                >
                   {" "}
                   Sign Up
                 </button>
               </form>
-              </Grid>
-              {/* <div className="barrier">
+            </Grid>
+            {/* <div className="barrier">
                 <div className="verticalLine"></div>
                 <span className="barrier__word">OR</span>
                 <div className="verticalLine"></div>
@@ -279,7 +275,7 @@ export default function MaxWidthDialog({ openDialog, parentCallback }) {
               <div className="content--signUpWith">
                 {/* <span className="content--signUpWith__header"> Sign Up with</span> */}
 
-                {/* <div className="content--signUpWith__buttons">
+            {/* <div className="content--signUpWith__buttons">
                   <button className="btn">
                     <FacebookIcon id="facebookImage" />
                     <span className="btn__text">SIGN UP WITH FACEBOOK</span>
