@@ -1,5 +1,5 @@
 .signInSignUpPage {
-  height: 100vh;
+  height: 100%;
   background: rgb(187, 199, 224);
   background: -moz-linear-gradient(
     315deg,
@@ -39,6 +39,8 @@
     rgba(254, 254, 254, 1) 100%
   );
   border-radius: 33px;
+  height: fit-content;
+  padding-bottom: 20px;
   /* width:fit-content;
   min-width: fit-content; */
 }
@@ -54,14 +56,16 @@
   .signInSignUpPage__img {
     display: none;
   }
+  .outerContainer{
+    width:80%;
+  }
 }
 @media only screen and (max-width: 600px) {
-  .signInSignUpPage {
+  /* .signInSignUpPage {
     height: 190vh;
     width: 150vw;
-  }
+  } */
   .outerDiv {
-    height: 150vh;
     display: flex;
     align-items: flex-start !important;
   }
