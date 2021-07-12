@@ -33,7 +33,7 @@ async function postVideoAndPpt({ ppt, video, Name }) {
     });
 
   const result = await axios
-    .post("http://localhost:5000/videos", formData, {
+    .post("https://mockit-backend.herokuapp.com/videos", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     })
     .catch(function (error) {
