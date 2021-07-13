@@ -23,7 +23,8 @@
 }
 .outerContainer{
   min-width:200px;
-  max-height:100vh,    
+  max-height:100% !important;  
+  align-self: center;  
 }
 .outerDiv {
   padding: 0px 10px;
@@ -39,7 +40,7 @@
     rgba(254, 254, 254, 1) 100%
   );
   border-radius: 33px;
-  height: fit-content;
+  height: 80%;
   padding-bottom: 20px;
   /* width:fit-content;
   min-width: fit-content; */
@@ -68,5 +69,6 @@
   .outerDiv {
     display: flex;
     align-items: flex-start !important;
+    width: 90% !important;
   }
 }
