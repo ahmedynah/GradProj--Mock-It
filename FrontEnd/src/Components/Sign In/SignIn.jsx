@@ -100,8 +100,8 @@ const handleReset = async (e) => {
   return (
     <Grid container className="root">
       <Grid
-        item
         container
+        item
         direction="column"
         justify="center"
         alignItems="center"
@@ -115,8 +115,9 @@ const handleReset = async (e) => {
           direction="column"
           justify="center"
           alignItems="flex-start"
+          className="headerOfSignIn"
         >
-          <h1>Sign In</h1>
+          <h1 className="signInText">Sign In</h1>
           <div className="signInWith__Header">
             <hr />
             <h5> Sign in with</h5>
@@ -129,6 +130,7 @@ const handleReset = async (e) => {
           justify="center"
           alignItems="center"
           spacing={1}
+          className="fireBaseAuthContainer"
         >
           <Grid xs="0" md="1"/>
           <StyledFirebaseAuth
@@ -137,7 +139,7 @@ const handleReset = async (e) => {
           />
           <Grid xs="0" md="1"/>
         </Grid>
-        <Grid item className="form--Container">
+        <Grid item xs={12} className="form--Container">
 
         <div className="signIn__form">
           <div className="form__Input">

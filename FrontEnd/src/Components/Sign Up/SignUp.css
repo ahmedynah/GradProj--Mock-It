@@ -12,6 +12,9 @@
   font-size: xx-large;
   font-weight: bold;
 }
+.margin0 {
+  margin: 0px !important;
+}
 .contentText {
   display: block;
   color: rgb(138, 138, 138);
@@ -21,12 +24,13 @@
   width: fit-content;
   text-transform: uppercase;
 }
-.content {
+.contentSignUp {
   padding: 20px;
+  margin: 0px;
 }
 .content--info {
   display: flex;
-  flex: 1;
+  flex: 0.25;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -73,22 +77,18 @@
     transform: translateY(-20px);
   }
 }
-@media only screen and (max-width: 1026px) {
-  .content--info {
-    display: none;
-  }
-}
+
 .content--form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex: 1;
+  flex: 0.66;
 }
 
 .content--form__input {
   height: 60px !important;
-  width: 300px;
+  width: 60%;
   padding: 10px;
   outline: none;
   background-color: #f6f9ff;
@@ -108,8 +108,8 @@
 
 .DateAndGender {
   display: flex;
-  justify-content: center;
   align-items: center;
+  width: 60%;
 }
 .name--FN {
   border-bottom-left-radius: 0px;
@@ -123,14 +123,14 @@
   border-top: 0px;
 }
 .date {
-  width: 150px;
+  width: 50%;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
   border-right: 1px solid #e5e7f2;
   color: #7575a1;
 }
-.gender {
-  width: 150px;
+.genderSignUp {
+  width: 50%;
   height: 54px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
@@ -285,10 +285,14 @@
     border-bottom-right-radius: 5px;
     border-right: 1px solid #e5e7f2;
   }
-  .gender {
-    width: 225px;
+  .genderSignUp {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     border-left: 1px solid #e5e7f2;
+  }
+}
+@media only screen and (max-width: 1026px) {
+  .content--info {
+    display: none;
   }
 }

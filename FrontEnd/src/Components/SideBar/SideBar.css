@@ -1,0 +1,109 @@
+#forelshabab {
+  position: relative;
+}
+#semiCircle {
+  position: absolute;
+  z-index: -1000;
+  width: 180%;
+  background-color: #eef1f7;
+  height: 500px;
+  top: 50%;
+  margin-top: -250px;
+  left: -60%;
+  border-radius: 50%;
+  box-shadow: 10px 40px 12px -10px rgba(0, 0, 0, 0.1);
+}
+.sideBarMenu {
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  border-radius: 33px 0px 0px 33px;
+  /* background-color: #eef1f7; */
+}
+.sideBarMenu::before {
+  content: "";
+  position: absolute;
+
+  background-color: transparent;
+  bottom: -50px;
+  height: 50px;
+  width: 25px;
+  right: 0px;
+  border-top-right-radius: 33px;
+  box-shadow: 0px -20px 0 0 #eef1f7;
+}
+.sideBarMenu::after {
+  content: "";
+  position: absolute;
+  background-color: transparent;
+  top: -50px;
+  height: 50px;
+  width: 25px;
+  right: 0px;
+  border-bottom-right-radius: 33px;
+  box-shadow: 0px 20px 0 0 #eef1f7;
+}
+.sideBarMenu__item {
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  z-index: 100;
+  margin: 0px 0px 0px 0px;
+  font-size: 1.2em;
+  display: flex;
+  line-height: -1px;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 33px 0px 0px 33px;
+  height: 3.1em;
+}
+.menuItem__text {
+  box-sizing: border-box;
+  font-weight: 800;
+  width: 100%;
+}
+.menuItem__text a:visited {
+  color: #000000;
+}
+.sideBarMenu__item:hover::before {
+  content: "";
+  position: absolute;
+
+  background-color: transparent;
+  bottom: -50px;
+  height: 49px;
+  width: 30px;
+  right: -1px;
+  margin-left: 10px;
+  border-top-right-radius: 20px;
+  border-top: 1px solid black;
+  box-shadow: 10px -40px 0 10px #eef1f7;
+}
+.sideBarMenu__item:hover::after {
+  content: "";
+  position: absolute;
+  background-color: transparent;
+  top: -50px;
+  height: 49px;
+  width: 30px;
+  right: -1px;
+  border-bottom-right-radius: 20px;
+  border-bottom: 1px solid black;
+  box-shadow: 10px 40px 0 10px #eef1f7;
+}
+.sideBarMenu__item:hover {
+  background-color: #eef1f7;
+  border: 1px solid black;
+  border-right: 0px;
+}
+.homeLink {
+  text-decoration: none;
+}

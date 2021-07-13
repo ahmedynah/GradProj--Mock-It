@@ -1,16 +1,13 @@
-import { Link } from "react-router-dom";
 import { Grid } from "@material-ui/core";
-import { CallMissedSharp } from "@material-ui/icons";
-import { makeStyles } from "@material-ui/styles";
 import React, { useState, useContext, useEffect } from "react";
-import { Button, Container } from "@material-ui/core";
+import { Button, Container, CssBaseline } from "@material-ui/core";
 import AppBar from "../../Components/App Bar/AppBar";
 import MovieIcon from "@material-ui/icons/Movie";
 import AttachmentIcon from "@material-ui/icons/Attachment";
 import axios from "axios";
 import firebase from "../../config/Firebase";
-import videoImg from "../../assets/img/background1.jpg";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+import { WavesOpacity } from "../../assets/svg/svg";
+import SideBar from "../../Components/SideBar/SideBar";
 import "./UserMain.css";
 const firestore = firebase.firestore();
 
@@ -45,7 +42,7 @@ async function postVideoAndPpt({ ppt, video, Name }) {
     
   console.log(result.data);
   const date = new Date();
-   let pushData = firestore.collection("modelData").doc();
+  let pushData = firestore.collection("modelData").doc();
   await pushData.set({
     uID: firebase.auth().currentUser.uid,
     videoID: result.data.videoPath,
@@ -107,7 +104,11 @@ function MainVideo({ videoSrc, videoName, date, overallScore, submittedTo }) {
       alignItems="start"
     >
       <div className="video--container">
+<<<<<<< HEAD
         <video key={videoSrc} className="video" width="100%" controls>
+=======
+        <video key={"https://mockit-backend.herokuapp.com"+videoSrc} className="video" width="100%" controls>
+>>>>>>> main
           <source src={"https://mockit-backend.herokuapp.com"+videoSrc} type="video/mp4" />
         </video>
         <div className="video__info">
@@ -129,50 +130,8 @@ function MainVideo({ videoSrc, videoName, date, overallScore, submittedTo }) {
     </Grid>
   );
 }
-function TiltShape() {
-  return (
-    <div class="custom-shape-divider-top-1624904894">
-      <svg
-        data-name="Layer 1"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1200 120"
-        preserveAspectRatio="none"
-      >
-        <path
-          d="M1200 120L0 16.48 0 0 1200 0 1200 120z"
-          class="shape-fill"
-        ></path>
-      </svg>
-    </div>
-  );
-}
-function WavesOpacity() {
-  return (
-    <div class="custom-shape-divider-top-1624973160">
-      <svg
-        data-name="Layer 1"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1200 120"
-        preserveAspectRatio="none"
-      >
-        <path
-          d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
-          opacity=".25"
-          class="shape-fill"
-        ></path>
-        <path
-          d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
-          opacity=".5"
-          class="shape-fill"
-        ></path>
-        <path
-          d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
-          class="shape-fill"
-        ></path>
-      </svg>
-    </div>
-  );
-}
+
+
 function UploadElements() {
   const [file, setFile] = useState();
   const [videoFile, setVideoFile] = useState();
@@ -189,8 +148,12 @@ function UploadElements() {
     });
     console.log("dy al result video");
     console.log(resultVideo);
-    videoContext1.setVideo({vidID: resultVideo.videoPath, vidName: Name, date: new Date().toLocaleDateString()});
-    setVideos([resultVideo.video, ...videos])
+    videoContext1.setVideo({
+      vidID: resultVideo.videoPath,
+      vidName: Name,
+      date: new Date().toLocaleDateString(),
+    });
+    setVideos([resultVideo.video, ...videos]);
     // console.log(pptFiles);
     // console.log(videos);
   };
@@ -284,26 +247,29 @@ function Tip() {
 }
 function Reel({ getVideos }) {
   const [videos, setVideos] = useState("");
-  useEffect(()=>{
-    getVideos().then((result)=>{
-    
-      console.log("REELL",result); 
-      setVideos(result)
-      console.log("videooosss",videos.length)
-    })
-    
-}, [])
+  useEffect(() => {
+    getVideos().then((result) => {
+      console.log("REELL", result);
+      setVideos(result);
+      console.log("videooosss", videos.length);
+    });
+  }, []);
   let videoContext = useContext(videoIDContext);
   const handleOnClick = (event) => {
     console.log(event.target);
-    videos.forEach((vid)=>{
-      if(vid.videoID === event.target.id)
-      videoContext.setVideo({vidID: vid.videoID, vidName: vid.name, date: vid.date})
+    videos.forEach((vid) => {
+      if (vid.videoID === event.target.id)
+        videoContext.setVideo({
+          vidID: vid.videoID,
+          vidName: vid.name,
+          date: vid.date,
+        });
     });
   };
-  
+
   return (
     <>
+<<<<<<< HEAD
     
       {videos? videos.map((entry) => {
       console.log("videooosss",entry)
@@ -325,6 +291,42 @@ function Reel({ getVideos }) {
          
         );
       }): <div></div>}
+=======
+      {videos ? (
+        videos.map((entry) => {
+          console.log("videooosss", entry);
+          return (
+            <div
+              className="videoThumbnail"
+              id={entry.videoID}
+              onClick={handleOnClick}
+              style={{ cursor: "pointer" }}
+            >
+              <video
+                on
+                style={{ pointerEvents: "none" }}
+                key={"https://mockit-backend.herokuapp.com"+entry.videoID}
+                className="videoThumbnail"
+              >
+                <source src={"https://mockit-backend.herokuapp.com"+entry.videoID}></source>
+              </video>
+              <h6
+                style={{ pointerEvents: "none" }}
+                className="videoThumbnail__title"
+              >
+                {entry.name}
+              </h6>
+              <div
+                style={{ pointerEvents: "none" }}
+                className="videoThumbnail__overlay"
+              ></div>
+            </div>
+          );
+        })
+      ) : (
+        <div></div>
+      )}
+>>>>>>> main
     </>
   );
 }
@@ -397,7 +399,11 @@ function Home({ video, data, reel, Tips, upload }) {
         style={{ margin: "10px" }}
         spacing={2}
       >
-        <MainVideo videoSrc={video.vidID} videoName={video.vidName} date={video.date} />
+        <MainVideo
+          videoSrc={video.vidID}
+          videoName={video.vidName}
+          date={video.date}
+        />
         <MainAnalysis analysis={analysis} />
       </Grid>
       <Grid
@@ -417,51 +423,18 @@ function Home({ video, data, reel, Tips, upload }) {
     </Grid>
   );
 }
-function SideBar() {
-  return (
-    <ul className="sideBarMenu">
-      <li className="sideBarMenu__item">
-        {" "}
-        <span className="menuItem__text">
-          <Link className="homeLink" to="/">
-            Home
-          </Link>
-        </span>
-      </li>
-      <li className="sideBarMenu__item">
-        {" "}
-        <span className="menuItem__text">Analytics</span>
-      </li>
-      <li className="sideBarMenu__item">
-        {" "}
-        <span className="menuItem__text">Profile</span>
-      </li>
-    </ul>
-  );
-}
 
-function Footer() {
-  return (
-    <>
-      <Grid item xs={5} className="footer">
-        <h4>Mockit</h4>
-      </Grid>
-      <Grid item xs={5} className="footer" justify="center" alignItems="center">
-        <h4 style={{ display: "inline-block" }}>Developed with</h4>
-        <FavoriteIcon style={{ fontSize: "10pt", margin: "0px 2px -2px" }} />
-      </Grid>
-    </>
-  );
-}
+
+
 const videoIDContext = React.createContext({
   video: {},
-  setVideo: () => {}
+  setVideo: () => {},
 });
 function UserMain() {
-
   const [video, setVideo] = useState({});
-  
+
   return (
+    <>
     <Grid container direction="column" style={{ height: "100%" }}>
       <WavesOpacity />
       <Grid item xs={12} style={{ flex: "0.01" }}>
@@ -481,21 +454,7 @@ function UserMain() {
         }}
         spacing={0}
       >
-        <Grid
-          direction="column"
-          justify="center"
-          container
-          item
-          xs={0}
-          md={2}
-          id="forelshabab"
-        >
-          {/* <Grid item xs="1"></Grid> */}
-          <div id="semiCircle">
-
-          </div>
-          <SideBar />
-        </Grid>
+        <SideBar />
         <Grid
           container
           item
@@ -510,6 +469,7 @@ function UserMain() {
         </Grid>
       </Grid>
     </Grid>
+    </>
   );
 }
 
