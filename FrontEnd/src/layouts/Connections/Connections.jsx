@@ -24,7 +24,9 @@ function Person({ imgUrl, firstName, lastName, lastOnline, about }) {
                 <h3 class="card__title">
                   {(firstName && lastName) || "Default User"}
                 </h3>
-                <span class="card__status">{"last online " + (lastOnline || "1 hour")+" ago"}</span>
+                <span class="card__status">
+                  {"last online " + (lastOnline || "1 hour") + " ago"}
+                </span>
               </div>
             </div>
 
@@ -44,121 +46,121 @@ function Connections() {
   const users = [
     {
       imgURl: personalImg,
-      FN: "3M Farghaly",
-      LN: "Beta3 El ott",
-      about: "Tmam gendan",
+      FN: "User",
+      LN: "User",
+      about: "status",
       lastOnline: "3 days",
     },
     {
       imgURl: personalImg,
-      FN: "bnt 3m Farghaly",
-      LN: "Beta3 El ott",
-      about: "Tmam gendan",
+      FN: "User",
+      LN: "User",
+      about: "status",
       lastOnline: "3 days",
     },
     {
       imgURl: personalImg,
-      FN: "3M Farghaly",
-      LN: "Beta3 El ott",
-      about: "Tmam gendan",
+      FN: "User",
+      LN: "User",
+      about: "status",
       lastOnline: "3 days",
     },
     {
       imgURl: personalImg,
-      FN: "bnt 3m Farghaly",
-      LN: "Beta3 El ott",
-      about: "Tmam gendan",
+      FN: "User",
+      LN: "User",
+      about: "status",
       lastOnline: "3 days",
     },
     {
       imgURl: personalImg,
-      FN: "3M Farghaly",
-      LN: "Beta3 El ott",
-      about: "Tmam gendan",
+      FN: "User",
+      LN: "User",
+      about: "status",
       lastOnline: "3 days",
     },
     {
       imgURl: personalImg,
-      FN: "bnt 3m Farghaly",
-      LN: "Beta3 El ott",
-      about: "Tmam gendan",
+      FN: "User",
+      LN: "User",
+      about: "status",
       lastOnline: "3 days",
     },
     {
       imgURl: personalImg,
-      FN: "3M Farghaly",
-      LN: "Beta3 El ott",
-      about: "Tmam gendan",
+      FN: "User",
+      LN: "User",
+      about: "status",
       lastOnline: "3 days",
     },
     {
       imgURl: personalImg,
-      FN: "bnt 3m Farghaly",
-      LN: "Beta3 El ott",
-      about: "Tmam gendan",
+      FN: "User",
+      LN: "User",
+      about: "status",
       lastOnline: "3 days",
     },
     {
       imgURl: personalImg,
-      FN: "3M Farghaly",
-      LN: "Beta3 El ott",
-      about: "Tmam gendan",
+      FN: "User",
+      LN: "User",
+      about: "status",
       lastOnline: "3 days",
     },
     {
       imgURl: personalImg,
-      FN: "bnt 3m Farghaly",
-      LN: "Beta3 El ott",
-      about: "Tmam gendan",
+      FN: "User",
+      LN: "User",
+      about: "status",
       lastOnline: "3 days",
     },
     {
       imgURl: personalImg,
-      FN: "3M Farghaly",
-      LN: "Beta3 El ott",
-      about: "Tmam gendan",
+      FN: "User",
+      LN: "User",
+      about: "status",
       lastOnline: "3 days",
     },
     {
       imgURl: personalImg,
-      FN: "bnt 3m Farghaly",
-      LN: "Beta3 El ott",
-      about: "Tmam gendan",
+      FN: "User",
+      LN: "User",
+      about: "status",
       lastOnline: "3 days",
     },
     {
       imgURl: personalImg,
-      FN: "3M Farghaly",
-      LN: "Beta3 El ott",
-      about: "Tmam gendan",
+      FN: "User",
+      LN: "User",
+      about: "status",
       lastOnline: "3 days",
     },
     {
       imgURl: personalImg,
-      FN: "bnt 3m Farghaly",
-      LN: "Beta3 El ott",
-      about: "Tmam gendan",
+      FN: "User",
+      LN: "User",
+      about: "status",
       lastOnline: "3 days",
     },
     {
       imgURl: personalImg,
-      FN: "3M Farghaly",
-      LN: "Beta3 El ott",
-      about: "Tmam gendan",
+      FN: "User",
+      LN: "User",
+      about: "status",
       lastOnline: "3 days",
     },
     {
       imgURl: personalImg,
-      FN: "bnt 3m Farghaly",
-      LN: "Beta3 El ott",
-      about: "Tmam gendan",
+      FN: "User",
+      LN: "User",
+      about: "status",
       lastOnline: "3 days",
     },
   ];
   return (
     <>
       {/* <CssBaseline/> */}
-      <Grid container direction="column" style={{ height: "100%"}}>
+      <Grid container direction="column" style={{ height: "100%" }}>
         <WavesOpacity />
         <Grid item xs={12} style={{ flex: "0.01" }}>
           <AppBar />
@@ -173,29 +175,32 @@ function Connections() {
             flex: "1",
             boxSizing: "border-box",
             padding: "10px",
-            margin:"0px",
+            margin: "0px",
             overflowY: "auto",
           }}
           spacing={0}
         >
-            
           <SideBar />
-          <Grid container spacing={4} xs={12} md={10} className="mainConnection" style={{overflowY:"auto"}}>
+          <Grid
+            container
+            spacing={4}
+            xs={12}
+            md={10}
+            className="mainConnection"
+            style={{ overflowY: "auto" }}
+          >
             <Grid item xs={12} justify="center">
               <ul class="cards">
                 {users.map((person) => {
-                 return (
-
-                     <Person
-                     imgUrl={personalImg}
-                     firstName={person.FN}
-                     lastName={person.LN}
-                     lastOnline={person.lastOnline}
-                     about={person.about}
-                     />
-                     
-                     );
-                  
+                  return (
+                    <Person
+                      imgUrl={personalImg}
+                      firstName={person.FN}
+                      lastName={person.LN}
+                      lastOnline={person.lastOnline}
+                      about={person.about}
+                    />
+                  );
                 })}
               </ul>
             </Grid>

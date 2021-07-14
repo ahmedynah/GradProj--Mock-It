@@ -26,12 +26,19 @@ function SideBar() {
             </span>
           </li>
           <li className="sideBarMenu__item">
-            {" "}
-            <span className="menuItem__text">Connections</span>
+          <span className="menuItem__text">
+              <Link className="homeLink" to="/connections">
+                Connections
+              </Link>
+            </span>
+            {/* <span className="menuItem__text">Connections</span> */}
           </li>
           <li className="sideBarMenu__item">
-            {" "}
-            <span className="menuItem__text">Dashboard</span>
+          <span className="menuItem__text">
+              <Link className="homeLink" to="/dashboard">
+              Dashboard
+              </Link>
+            </span>
           </li>
         </ul>
       </Grid>

@@ -236,7 +236,7 @@ function Tip() {
     <div className="floatingDiv tip">
       <h3 className="tip__header">Presentation Tip:</h3>
       <p className="tip__content">
-        fonts must be visilbe for blind people... LOL
+        fonts must be visible and big
       </p>
     </div>
   );
