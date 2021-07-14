@@ -25,7 +25,7 @@ ReactDOM.render(
           <PrivateRoute path="/connections" component={Connections} />
           <PrivateRoute path="/account" component={Account} />
           <Route path="/test" component={test} />
-          <PublicRoute exact path="/" component={LandingPage} />
+          <Route exact path="/" component={LandingPage} />
         </Switch>
       </div>
     </BrowserRouter>

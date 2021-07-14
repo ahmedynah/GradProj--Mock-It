@@ -7,59 +7,59 @@ import {
   CssBaseline,
   Button,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import { CurveShape, CurveInverted } from "../../assets/svg/svg.jsx";
 import firebase from "../../config/Firebase";
 import ahmedImg from "../../assets/img/Formal_Image-removebg-preview.png";
 import coverImg from "../../assets/img/trial2.jpg";
 import "./Account.css";
-import { width } from "@material-ui/system";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 const firestore = firebase.firestore();
 
 let img;
 /**
- * 
+ *
  * @returns Account Component
  */
 function Account() {
+  /**
+   *
+   * @param {string} firstName
+   * @param {string} lastName
+   * @param {string} emailName
+   * @param {string} gender
+   * @param {Date}   dob
+   * @param {string} job
+   * @param {string} overallScore
+   * @returns UserData Component
+   */
 
-    /**
-     * 
-     * @param {string} firstName
-     * @param {string} lastName
-     * @param {string} emailName
-     * @param {string} gender
-     * @param {Date}   dob
-     * @param {string} job
-     * @param {string} overallScore
-     * @returns UserData Component
-     */
+  const [completeReg, setCompleteReg] = useState(false);
+  const [userDoc, setUserDoc] = useState({});
 
-     const [completeReg, setCompleteReg] = useState(false);
-    const [userDoc, setUserDoc] = useState({});
-
-     async function getUserDataFromDB()
-    {
-       const usersRef = firestore.collection("users");
-      // let user = ;
-      if (firebase.auth().currentUser) {
-        const snapshot = await usersRef
-          .doc(firebase.auth().currentUser.uid)
-          .get();
-        if (snapshot.empty) {
-          console.log("No matching documents.");
-          setCompleteReg(false);
-          return;
-        }else
-        { setCompleteReg(true)
-       return snapshot.data(); }
+  async function getUserDataFromDB() {
+    const usersRef = firestore.collection("users");
+    // let user = ;
+    if (firebase.auth().currentUser) {
+      const snapshot = await usersRef
+        .doc(firebase.auth().currentUser.uid)
+        .get();
+      if (snapshot.empty) {
+        console.log("No matching documents.");
+        setCompleteReg(false);
+        return;
+      } else {
+        setCompleteReg(true);
+        return snapshot.data();
       }
-
     }
-     useEffect(() => {
-      getUserDataFromDB().then((result)=> {
-        setUserDoc(result);
-      })
-    }, [])
+  }
+  useEffect(() => {
+    getUserDataFromDB().then((result) => {
+      setUserDoc(result);
+    });
+  }, []);
   function UserData({
     firstName,
     lastName,
@@ -68,11 +68,11 @@ function Account() {
     dob,
     job,
     overallScore,
-    compReg
+    compReg,
   }) {
-      /**
-       * States for userData Component
-       */
+    /**
+     * States for userData Component
+     */
     const [FirstName, setFirstName] = useState(firstName);
     const [LastName, setLastName] = useState(lastName);
     const [Email, setEmail] = useState(email);
@@ -91,34 +91,44 @@ function Account() {
     }
 
     async function completeRegInDB() {
-      if(!compReg && firebase.auth().currentUser)
-      {
-         let pushData = firestore.collection("users").doc(firebase.auth().currentUser.uid);
-          await pushData.set({
+      if (!compReg && firebase.auth().currentUser) {
+        let pushData = firestore
+          .collection("users")
+          .doc(firebase.auth().currentUser.uid);
+        await pushData
+          .set({
             firstname: FirstName,
             lastname: LastName,
             email: firebase.auth().currentUser.email,
             dob: Dob,
             gender: Gender,
             job: Job,
-          }).then(()=>{ setCompleteReg(true); });
-      }else if(compReg)
-      {
+          })
+          .then(() => {
+            setCompleteReg(true);
+          });
+      } else if (compReg) {
         setCompleteReg(false);
       }
     }
     const sendVerficationEmail = () => {
-      firebase.auth().currentUser.sendEmailVerification().then(()=>{
-        alert("Verfication email sent succesfully...");
-      }).catch((err) => {
-        alert("Something went wrong while verfying your email..");
-      })
+      firebase
+        .auth()
+        .currentUser.sendEmailVerification()
+        .then(() => {
+          alert("Verfication email sent succesfully...");
+        })
+        .catch((err) => {
+          alert("Something went wrong while verfying your email..");
+        });
     };
 
     useEffect(() => {
       console.log("in Effect");
-      if(compReg && firebase.auth().currentUser.providerData[0].providerId == "password")
-      {
+      if (
+        compReg &&
+        firebase.auth().currentUser.providerData[0].providerId == "password"
+      ) {
         setGender(userDoc.gender);
         return;
       }
@@ -138,7 +148,7 @@ function Account() {
         console.log("\n\r");
       });
     }, [Gender]);
-  
+
     return (
       <div className="content">
         <h1 className="userName">
@@ -181,7 +191,13 @@ function Account() {
                   id="gender"
                   onChange={handleEditClicked}
                 >
-                  <option value="Gender">{(compReg && firebase.auth().currentUser.providerData[0].providerId == "password") ? userDoc.gender : "Gender"}</option>
+                  <option value="Gender">
+                    {compReg &&
+                    firebase.auth().currentUser.providerData[0].providerId ==
+                      "password"
+                      ? userDoc.gender
+                      : "Gender"}
+                  </option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                   {/* <input type="text" value={firstName} placeholder="First Name" onChange={handleEditClicked} className="firstName"></input> */}
@@ -224,11 +240,22 @@ function Account() {
               </div>
             </div>
             <div className="d-flex">
-            <Button onClick={completeRegInDB} type="submit" className="submitBtn">
-              {compReg ? "Edit" : "Save"}
-            </Button>
-             {!compReg || !firebase.auth().currentUser.emailVerified ? <Button onClick={sendVerficationEmail} style={{ width: "15rem" }} className="submitBtn">
-            Send Verification Message</Button> : null}
+              <Button
+                onClick={completeRegInDB}
+                type="submit"
+                className="submitBtn"
+              >
+                {compReg ? "Edit" : "Save"}
+              </Button>
+              {!compReg || !firebase.auth().currentUser.emailVerified ? (
+                <Button
+                  onClick={sendVerficationEmail}
+                  style={{ width: "15rem" }}
+                  className="submitBtn"
+                >
+                  Send Verification Message
+                </Button>
+              ) : null}
             </div>
           </div>
         </div>
@@ -244,8 +271,8 @@ function Account() {
         disableGutters
         style={{ backgroundColor: "#FFFFFF", overflow: "hidden" }}
       >
-        <Grid style={{ height: "100vh" }}>
-          <Grid item direction="column" sm={12} style={{ height: "100%" }}>
+        <Grid xs={12} style={{ height: "100vh" }}>
+          <Grid item direction="column" xm={9} style={{ height: "100%", overflowY:"auto" }}>
             <Grid item xs={12}>
               <AppBar />
             </Grid>
@@ -254,7 +281,7 @@ function Account() {
               item
               direction="column"
               xs={12}
-              style={{ overflow: "hidden", height: "100%" }}
+              style={{ overflow: "hidden" }}
               justify="space-evenly"
               alignItems="center"
             >
@@ -271,9 +298,10 @@ function Account() {
                   justifyItems: "center",
                   margin: "0px auto",
                   overflowY: "hidden",
+                  height:"fit-content"
                 }}
               >
-                {/* <div className="blur"></div> */}
+                 {/* <div className="blur"></div>*/}
                 <CurveInverted />
                 <Grid
                   item
@@ -284,7 +312,7 @@ function Account() {
                 >
                   <div className="align__Div">
                     {(!img && (
-                      <Avatar src={ahmedImg} id="avatar__Section"></Avatar>
+                      <Avatar src="" id="avatar__Section"></Avatar>
                     )) || (
                       <img
                         src={ahmedImg}
@@ -302,17 +330,69 @@ function Account() {
                   justify="center"
                   alignItems="center"
                   className="basicInfo__RightSection"
-                > 
-                    <UserData
-                      compReg={completeReg}
-                      firstName={ (completeReg && firebase.auth().currentUser.providerData[0].providerId == "password") ? userDoc.firstname.charAt(0).toUpperCase() + userDoc.firstname.slice(1) : firebase.auth().currentUser.displayName}
-                      lastName={ completeReg && firebase.auth().currentUser.providerData[0].providerId == "password"  ? userDoc.lastname.charAt(0).toUpperCase() + userDoc.lastname.slice(1) : ""}
-                      email={firebase.auth().currentUser.email}
-                      gender={ (completeReg && firebase.auth().currentUser.providerData[0].providerId == "password") ? userDoc.gender : "Gender"}
-                      dob={ (completeReg && firebase.auth().currentUser.providerData[0].providerId == "password") ? userDoc.dob : ""}
-                      job={ (completeReg && firebase.auth().currentUser.providerData[0].providerId == "password") ? userDoc.job : ""}
-                    />
+                >
+                  <UserData
+                    compReg={completeReg}
+                    firstName={
+                      completeReg &&
+                      firebase.auth().currentUser.providerData[0].providerId ==
+                        "password"
+                        ? userDoc.firstname.charAt(0).toUpperCase() +
+                          userDoc.firstname.slice(1)
+                        : firebase.auth().currentUser.displayName
+                    }
+                    lastName={
+                      completeReg &&
+                      firebase.auth().currentUser.providerData[0].providerId ==
+                        "password"
+                        ? userDoc.lastname.charAt(0).toUpperCase() +
+                          userDoc.lastname.slice(1)
+                        : ""
+                    }
+                    email={firebase.auth().currentUser.email}
+                    gender={
+                      completeReg &&
+                      firebase.auth().currentUser.providerData[0].providerId ==
+                        "password"
+                        ? userDoc.gender
+                        : "Gender"
+                    }
+                    dob={
+                      completeReg &&
+                      firebase.auth().currentUser.providerData[0].providerId ==
+                        "password"
+                        ? userDoc.dob
+                        : ""
+                    }
+                    job={
+                      completeReg &&
+                      firebase.auth().currentUser.providerData[0].providerId ==
+                        "password"
+                        ? userDoc.job
+                        : ""
+                    }
+                  />
                 </Grid>
+              </Grid>
+              <Grid item xs={12} justify="space-between" alignItems="center">
+                <ul className="menuNav">
+                  <li className="menuNav__link">
+                    <Link to="/dashboard" className="linkStyling">
+                      <ArrowBackIcon
+                        style={{ fontSize: "16pt" }}
+                      ></ArrowBackIcon>
+                      <span className="link__text">Dashboard</span>
+                    </Link>
+                  </li>
+                  <li className="menuNav__link">
+                    <Link to="/" className="linkStyling">
+                      <span className="link__text">Home</span>
+                      <ArrowForwardIcon
+                        style={{ fontSize: "16pt" }}
+                      ></ArrowForwardIcon>
+                    </Link>
+                  </li>
+                </ul>
               </Grid>
             </Grid>
           </Grid>

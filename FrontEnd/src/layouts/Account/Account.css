@@ -244,7 +244,31 @@
       font-size: 0.9em;
   } */
 }
+.menuNav{
+  list-style: none;
+  display: flex;
+  width: 100%;
+  padding: 20px;
+  justify-content: space-evenly;
+}
+.linkStyling{
+display: flex;
+align-items: center;
+width: max-content;
+text-decoration: none;
+}
+.linkStyling:visited{
+  color: black;
+}
+.linkStyling:hover{
+  transform: scale(1.02);
+}
 
+.link__text{
+  font-size: 16pt;
+  font-weight: 600;
+  padding-inline: 8px;
+}
 @media screen and (max-width: 300px) {
   .image__Section {
     align-self: flex-start;

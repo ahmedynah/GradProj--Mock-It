@@ -324,10 +324,10 @@ const getRecentVideos = async () => {
 
 function Home({ video, data, reel, Tips, upload }) {
   const analysis = {
-    first: "70%",
-    second: "poor",
-    third: "cool",
-    fourth: "3latool",
+    "Structure and connection of ideas": "70%",
+    "Goodness of  pronunciation": "80%",
+    "Maintenance of adequate voice volume for the audience": "85.96%",
+    "Grammar of presentation slides": "60%",
     fifth: "forSchool",
     sixth: "ya 2moor",
   };
