@@ -38,6 +38,7 @@ async function postVideoAndPpt({ ppt, video, Name }) {
     })
     .catch(function (error) {
       console.log(error);
+     
     });
     
   console.log(result.data);
@@ -51,11 +52,11 @@ async function postVideoAndPpt({ ppt, video, Name }) {
     results: [],
     name: Name,
   });
-
+  alert("Video has been uploaded succesfully you'll be notified when the results is ready\nThank you<3....")
   return result.data;
 }
 
-function iterateData(obj) {
+function iterateData(obj,video) {
   let counter = 0;
 
   const ar = [];
@@ -65,9 +66,9 @@ function iterateData(obj) {
       <Grid container justify="space-between" alignItems="center" xs={4}>
         <h4 className="analysis__field--header">{field}:</h4>
         <span className="analysis__field--high">
-          {" "}
+          {" "}  
           {"\u00A0"}
-          {obj[field]}
+          {true ? obj[field] : null}
         </span>
       </Grid>
     );
@@ -86,9 +87,21 @@ function iterateData(obj) {
 }
 
 function MainAnalysis({ analysis }) {
+  const [video, setVideo] = useState()
+  const [flag, setFlag] = useState(false)
+  useEffect(() => {
+    console.log("shghala")
+    if(video == null)
+    setFlag(false)
+    else
+    setFlag(true)
+
+  }, [video])
   return (
     <Grid item xs={12} md={5} justify="center" alignItems="center">
-      <div className="main__analysis">{iterateData(analysis)}</div>
+     <videoIDContext.Provider value={{ video, setVideo }}>
+    {  <div className="main__analysis">{iterateData(analysis, video)}</div>}
+      </videoIDContext.Provider>
     </Grid>
   );
 }
@@ -115,7 +128,7 @@ function MainVideo({ videoSrc, videoName, date, overallScore, submittedTo }) {
           </div>
           <div className="info__OverallScore">
             <h5>Overall Score: </h5>
-            <p>{overallScore || "70%"}</p>
+            <p>{overallScore || "Pending..."}</p>
           </div>
           <div className="info__SubmittedTo">
             <h5>Submitted To: </h5>
@@ -136,6 +149,7 @@ function UploadElements() {
   let videoContext1 = useContext(videoIDContext);
 
   const submit = async (event) => {
+    alert("Your video is being uploaded please be patient...")     
     event.preventDefault();
     const resultVideo = await postVideoAndPpt({
       ppt: file,
@@ -324,12 +338,12 @@ const getRecentVideos = async () => {
 
 function Home({ video, data, reel, Tips, upload }) {
   const analysis = {
-    "Structure and connection of ideas": "70%",
-    "Goodness of  pronunciation": "80%",
-    "Maintenance of adequate voice volume for the audience": "85.96%",
-    "Grammar of presentation slides": "60%",
-    fifth: "forSchool",
-    sixth: "ya 2moor",
+    "Structure and connection of ideas": null,
+    "Goodness of  pronunciation": null,
+    "Maintenance of adequate voice volume for the audience": null,
+    "Grammar of presentation slides": null,
+    "Impact of the visual design of the presentation slides": null,
+    "Presentation pace": null,
   };
   return (
     <Grid

@@ -130,10 +130,10 @@ export default function PrimarySearchAppBar() {
       <MenuItem id="account" onClick={handleMenuClose}>
         <AssignmentIndIcon/> {'\u00A0'}<Link to="/account">Account</Link></MenuItem>
       
-      {(true && <MenuItem id="account" onClick={handleMenuClose}>
+      {(!firebase.auth().currentUser && <MenuItem id="account" onClick={handleMenuClose}>
         <AssignmentIndIcon/> {'\u00A0'}<Link to="/login">Sign In/Up</Link></MenuItem>)}
-      <MenuItem id="signout" onClick={handleMenuClose}>
-        <MeetingRoomIcon/> {'\u00A0'} Sign out</MenuItem>
+      {(firebase.auth().currentUser && <MenuItem id="signout" onClick={handleMenuClose}>
+        <MeetingRoomIcon/> {'\u00A0'} Sign out</MenuItem>)}
     </Menu>
   );
 
