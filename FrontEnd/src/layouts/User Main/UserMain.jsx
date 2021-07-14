@@ -104,8 +104,8 @@ function MainVideo({ videoSrc, videoName, date, overallScore, submittedTo }) {
       alignItems="start"
     >
       <div className="video--container">
-        <video key={"https://mockit-backend.herokuapp.com/"+videoSrc} className="video" width="100%" controls>
-          <source src={"https://mockit-backend.herokuapp.com/"+videoSrc} type="video/mp4" />
+        <video key={"https://mockit-backend.herokuapp.com"+videoSrc} className="video" width="100%" controls>
+          <source src={"https://mockit-backend.herokuapp.com"+videoSrc} type="video/mp4" />
         </video>
         <div className="video__info">
           <h3 className="info__title">{videoName}</h3>
@@ -278,10 +278,10 @@ function Reel({ getVideos }) {
               <video
                 on
                 style={{ pointerEvents: "none" }}
-                key={"https://mockit-backend.herokuapp.com/"+entry.videoID}
+                key={"https://mockit-backend.herokuapp.com"+entry.videoID}
                 className="videoThumbnail"
               >
-                <source src={"https://mockit-backend.herokuapp.com/"+entry.videoID}></source>
+                <source src={"https://mockit-backend.herokuapp.com"+entry.videoID}></source>
               </video>
               <h6
                 style={{ pointerEvents: "none" }}
