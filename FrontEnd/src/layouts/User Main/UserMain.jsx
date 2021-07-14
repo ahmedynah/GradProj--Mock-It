@@ -14,9 +14,11 @@ const firestore = firebase.firestore();
 async function postVideoAndPpt({ ppt, video, Name }) {
   const formData = new FormData();
   const pptdata = new FormData();
+  const videodata = new FormData();
   formData.append("video", video);
   formData.append("video", ppt);
   pptdata.append("ppt", ppt);
+  videodata.append("video", video);
   console.log(pptdata.data,"1111");
   console.log(pptdata,"2222");
   const result2 = await axios
@@ -31,7 +33,18 @@ async function postVideoAndPpt({ ppt, video, Name }) {
     .catch(function (error) {
       console.log(error);
     });
-
+    const resultVideo = await axios
+    .post("https://polar-peak-14386.herokuapp.com/https://mockit.herokuapp.com/mockit/upload_video/", videodata, {
+      headers: { "Content-Type": "multipart/form-data" , "Access-Control-Allow-Origin": "*" , "Access-Control-Allow-Credentials": "true"},
+      validateStatus: (status) => {
+        return true; // I'm always returning true, you may want to do it depending on the status received
+      },
+    }).then( (result) =>{
+      console.log(result,"videos tamam");
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   const result = await axios
     .post("https://mockit-backend.herokuapp.com/videos", formData, {
       headers: { "Content-Type": "multipart/form-data" },
