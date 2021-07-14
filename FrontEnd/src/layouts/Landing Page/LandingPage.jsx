@@ -81,10 +81,11 @@ function Card() {
 
 function LandingPage() {
   return (
-    <Grid container justify="center" className="landingPageContainer">
-      <Grid item container xs={12} className="heroSection">
-        <TiltShape />
+    <Grid container justify="center" className="landingPageContainer" style={{overflowX:"hidden"}}>
+
         <AppBar />
+      <Grid item container xs={12} className="heroSection" style={{overflowX:"hidden"}}>
+        <TiltShape />
         <Grid
           item
           xs={12}
@@ -169,7 +170,7 @@ function LandingPage() {
         className="footerSection"
         style={{ overflowX: "hidden" }}
       >
-        <Footer />
+        {/* <Footer /> */}
       </Grid>
     </Grid>
   );
